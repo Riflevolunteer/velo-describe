@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,6 +61,12 @@ const Categories = [
 ]
 
 export default function App() {
+
+  useEffect(() => {
+    fetch('http://EXPC02YL10KLVCH:3000/categories').then(response => console.log(response.json()))
+  }, [])
+  
+
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
@@ -76,7 +82,7 @@ const HomeScreen =({ navigation} ) => {
   <View style={styles}>
     {
       Categories.map(x => 
-        <Button title={x.title} onPress={() => navigation.navigate('Details', {name: x.title})}/>
+        <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Details', {name: x.title})}/>
       )
     }
     </View>
