@@ -1,70 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-const Categories = [
-  {
-    title: "Bottom Bracket" 
-  },
-  {
-    title: "Brake Levers"  
-  },
-  { 
-    title: "Brake Calipers"
-  },
-  {
-    title: "Chainsets"
-  },
-  {
-    title: "Freewheels"
-  },
-  {
-    title: "Front Deraileurs"
-  },
-  {
-    title: "Gear Levers"
-  },
-  {
-    title: "Handlebars"
-  },
-  {
-    title: "Headsets"
-  },
-  {
-    title: "Hubs"
-  },
-  {
-    title:"Pedals"
-  },
-  {
-    title: "Rear Deraileurs"
-  },
-  {
-    title: "Rims"
-  },
-  {
-    title: "Saddles"
-  },
-  {
-    title: "Seat Posts"
-  },
-  {
-    title: "Stems"
-  },
-  {
-    title: "Tyres"
-  }
-]
 
 export default function App() {
-
-  useEffect(() => {
-    fetch('http://EXPC02YL10KLVCH:3000/categories').then(response => console.log(response.json()))
-  }, [])
   
 
   return (
@@ -75,16 +18,29 @@ export default function App() {
     </Stack.Navigator>
     </NavigationContainer>
   );
+
 }
 
 const HomeScreen =({ navigation} ) => {
+
+  const [categories, setCategories] = useState()
+
+  useEffect(() => {
+    fetch('http://EXPC02YL10KLVCH:3000/categories').then(
+      response => response.json()).then(cat => {
+        setCategories(cat)
+        ///console.log(categories)
+       }) 
+      .catch(err => console.log(err))
+  }, [])
+
   return ( 
   <View style={styles}>
-    {
-      Categories.map(x => 
+     {
+      categories && categories.map(x => 
         <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Details', {name: x.title})}/>
-      )
-    }
+       )
+    } 
     </View>
   )
 }
