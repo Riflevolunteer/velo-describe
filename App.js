@@ -28,8 +28,8 @@ const HomeScreen =({ navigation} ) => {
   useEffect(() => {
     fetch('http://EXPC02YL10KLVCH:3000/categories').then(
       response => response.json()).then(cat => {
-        setCategories(cat)
-        ///console.log(categories)
+        const sortedCategories = cat.sort((a,b) => a.title > b.title && 1 || -1)
+        setCategories(sortedCategories)
        }) 
       .catch(err => console.log(err))
   }, [])
@@ -38,7 +38,7 @@ const HomeScreen =({ navigation} ) => {
   <View style={styles}>
      {
       categories && categories.map(x => 
-        <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Details', {name: x.title})}/>
+        <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Details', {name: x.title, id: x.category_id})}/>
        )
     } 
     </View>
@@ -46,8 +46,29 @@ const HomeScreen =({ navigation} ) => {
 }
 
 const DetailScreen = ({ route, navigation }) => {
-  const { name } = route.params;
-  return <Text>This is the Detail Screen for {name}</Text>;
+  const { name, id } = route.params;
+  const [brands, setBrands] = useState()
+
+  useEffect(() => {
+    fetch(`http://EXPC02YL10KLVCH:3000/brandsbycategory?id=${id}`).then(
+      response => response.json()).then(brand => {
+        const sortedBrands = brand.sort((a,b) => a.title > b.title && 1 || -1)
+        setBrands(sortedBrands)
+       }) 
+      .catch(err => console.log(err))
+  }, [])
+
+
+
+  return (
+    <View>
+  <Text>This is the Detail Screen for {name} with id {id}</Text>
+  { 
+    brands && brands.map(x => 
+      <Button key={x.brand_id} title={x.title}/>)
+  }
+  </View>
+  )
 };
 
 const styles = StyleSheet.create({
