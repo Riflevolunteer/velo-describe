@@ -14,7 +14,8 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Details" component={DetailScreen} />
+      <Stack.Screen name="Brands" component={BrandsScreen} />
+      <Stack.Screen name="ComponentsList" component={ComponentsListScreen} />
     </Stack.Navigator>
     </NavigationContainer>
   );
@@ -38,14 +39,14 @@ const HomeScreen =({ navigation} ) => {
   <View style={styles}>
      {
       categories && categories.map(x => 
-        <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Details', {name: x.title, id: x.category_id})}/>
+        <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
        )
     } 
     </View>
   )
 }
 
-const DetailScreen = ({ route, navigation }) => {
+const BrandsScreen = ({ route, navigation }) => {
   const { name, id } = route.params;
   const [brands, setBrands] = useState()
 
@@ -58,14 +59,36 @@ const DetailScreen = ({ route, navigation }) => {
       .catch(err => console.log(err))
   }, [])
 
+  return (
+    <View>
+  <Text>This is the Brands Screen for {name} with id {id}</Text>
+  { 
+    brands && brands.map(x => 
+      <Button key={x.brand_id} title={x.title} onPress={() => navigation.navigate('ComponentsList', {name: x.title, brand_id: x.brand_id, category_id: id})}/>)
+  }
+  </View>
+  )
+};
 
+const ComponentsListScreen = ({ route, navigation }) => {
+  const { name, brand_id, category_id } = route.params;
+  const [components, setComponents] = useState()
+
+  useEffect(() => {
+    fetch(`http://EXPC02YL10KLVCH:3000/componentsbybrandcategory?brand_id=${brand_id}&category_id=${category_id}`).then(
+      response => response.json()).then(components => {
+        const sortedComponents = components.sort((a,b) => a.title > b.title && 1 || -1)
+        setComponents(sortedComponents)
+       }) 
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <View>
-  <Text>This is the Detail Screen for {name} with id {id}</Text>
+  <Text>This is the Components Screen for {name} with id {brand_id}</Text>
   { 
-    brands && brands.map(x => 
-      <Button key={x.brand_id} title={x.title}/>)
+    components && components.map(x => 
+      <Button key={x.component_id} title={x.title}/>)
   }
   </View>
   )
