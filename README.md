@@ -8,8 +8,6 @@ npm run start
 
 # TODO
 
-- Create Component Detail view
-
 - Split out views to seperate files
 
 - Better error handling in Routes
