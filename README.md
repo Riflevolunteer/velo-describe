@@ -8,10 +8,14 @@ npm run start
 
 # TODO
 
-- Split out views to seperate files
-
 - Better error handling in Routes
 
 - Create Config file for URIs to backend node service
 
 - Look into Images in DB and displaying
+
+- Redesign View detail page
+
+- Add Search feature
+
+- Split out Node Server to seperate app
