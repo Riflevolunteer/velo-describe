@@ -25,7 +25,7 @@ const app = express();
 
 // Add headers before the routes are defined
  app.use(function (req, res, next) {
-
+  
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:19006', 'http://expc02yl10klvch:3000/');
 
@@ -44,78 +44,111 @@ const app = express();
 }); 
 
 // Creating a GET route that returns data from the 'users' table.
-app.get('/categories', function (req, res) {
+app.get('/categories', function (req, res, next) {
     // Connecting to the database.
+  try {
     connection.getConnection(function (err, connection) {
 
-    // Executing the MySQL query (select all data from the 'users' table).
-    connection.query('SELECT * FROM component_category', function (error, results, fields) {
-      // If some error occurs, we throw an error.
-      if (error) throw error;
+      // Executing the MySQL query (select all data from the 'users' table).
+      connection.query('SELECT * FROM component_category', function (error, results, fields) {
+        // If some error occurs, we throw an error.
+        if(error) { 
+          console.error(error && error.message)
+          res.status(500).json({ error: error.message }) 
+        }
 
-      // Getting the 'response' from the database and sending it to our route. This is were the data is.
-      res.send(results)
+        // Getting the 'response' from the database and sending it to our route. This is were the data is.
+        res.send(results)
+      });
     });
-  });
-});
-
-
-// Creating a GET route that returns data from the 'users' table.
-app.get('/componentsbybrandcategory', function (req, res) {
-  // Connecting to the database.
-  connection.getConnection(function (err, connection) {
-
-    const brand_id = req.query.brand_id;
-    const category_id = req.query.category_id;
-    // Executing the MySQL query (select all data from the 'users' table).
-    connection.query(`SELECT compd.* FROM component_detail compd 
-                        where compd.brand_id=${brand_id} and compd.category_id=${category_id}`, function (error, results, fields) {
-      // If some error occurs, we throw an error.
-      if (error) throw error;
-
-      
-      // Getting the 'response' from the database and sending it to our route. This is were the data is.
-      res.send(results)
-    });
-  });
+  } 
+  catch (error) {
+    console.error(error && error.message)
+    res.status(500).json({ error: error.message }) 
+  }
 });
 
 // Creating a GET route that returns data from the 'users' table.
-app.get('/brandsbycategory', function (req, res) {
+app.get('/componentsbybrandcategory', function (req, res, next) {
   // Connecting to the database.
-  connection.getConnection(function (err, connection) {
+  try {
+    connection.getConnection(function (err, connection) {
 
-    const brand_id = req.query.id;
-    // Executing the MySQL query (select all data from the 'users' table).
-    connection.query(`SELECT compb.* FROM component_brand compb 
-                        join category_brand catb on compb.brand_id = catb.brand_id 
-                        join component_category compc on compc.category_id = catb.category_id
-                        where compc.category_id=${brand_id}`, function (error, results, fields) {
-      // If some error occurs, we throw an error.
-      if (error) throw error;
+      const brand_id = req.query.brand_id;
+      const category_id = req.query.category_id;
+      // Executing the MySQL query (select all data from the 'users' table).
+      connection.query(`SELECT compd.* FROM component_detail compd 
+                          where compd.brand_id=${brand_id} and compd.category_id=${category_id}`, function (error, results, fields) {
+        // If some error occurs, we throw an error.
+        if (error) {
+          console.error(error && error.message)
+          res.status(500).json({ error: error.message }) 
+        }
 
-      // Getting the 'response' from the database and sending it to our route. This is were the data is.
-      res.send(results)
+        // Getting the 'response' from the database and sending it to our route. This is were the data is.
+        res.send(results)
+      });
     });
-  });
+  } catch (error) {
+    console.error(error && error.message)
+    res.status(500).json({ error: error.message }) 
+  }
 });
 
 // Creating a GET route that returns data from the 'users' table.
-app.get('/componentdetail', function (req, res) {
+app.get('/brandsbycategory', function (req, res, next) {
   // Connecting to the database.
-  connection.getConnection(function (err, connection) {
+  try {
+    connection.getConnection(function (err, connection) {
 
-    const component_id = req.query.id;
-    // Executing the MySQL query (select all data from the 'users' table).
-    connection.query(`SELECT compd.* FROM component_detail compd 
-                        where compd.component_id=${component_id}`, function (error, results, fields) {
-      // If some error occurs, we throw an error.
-      if (error) throw error;
+      const brand_id = req.query.id;
+      // Executing the MySQL query (select all data from the 'users' table).
+      connection.query(`SELECT compb.* FROM component_brand compb 
+                          join category_brand catb on compb.brand_id = catb.brand_id 
+                          join component_category compc on compc.category_id = catb.category_id
+                          where compc.category_id=${brand_id}`, function (error, results, fields) {
+        // If some error occurs, we throw an error.
+        if (error) {
+          console.error(error && error.message)
+          res.status(500).json({ error: error.message }) 
+        }
 
-      // Getting the 'response' from the database and sending it to our route. This is were the data is.
-      res.send(results)
+        // Getting the 'response' from the database and sending it to our route. This is were the data is.
+        res.send(results)
+      });
     });
-  });
+  }
+  catch (error) {
+    console.error(error && error.message)
+    res.status(500).json({ error: error.message }) 
+  }
+});
+
+// Creating a GET route that returns data from the 'users' table.
+app.get('/componentdetail', function (req, res, next) {
+  // Connecting to the database.
+  try {
+    connection.getConnection(function (err, connection) {
+
+      const component_id = req.query.id;
+      // Executing the MySQL query (select all data from the 'users' table).
+      connection.query(`SELECT compd.* FROM component_detail compd 
+                          where compd.component_id=${component_id}`, function (error, results, fields) {
+        // If some error occurs, we throw an error.
+        if (error) {
+          console.error(error && error.message)
+          res.status(500).json({ error: error.message }) 
+        }
+
+        // Getting the 'response' from the database and sending it to our route. This is were the data is.
+        res.send(results)
+      });
+    });
+  } 
+  catch (error) {
+    console.error(error && error.message)
+    res.status(500).json({ error: error.message }) 
+  }
 });
 
 // Starting our server.
