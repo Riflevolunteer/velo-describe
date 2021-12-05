@@ -8,8 +8,6 @@ npm run start
 
 # TODO
 
-- Create Config file for URIs to backend node service
-
 - Look into Images in DB and displaying
 
 - Redesign View detail page
