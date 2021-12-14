@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { StyleSheet, View, Button, Text, List, FlatList } from 'react-native';
 import config from '../config';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
@@ -17,12 +17,51 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     }, [])
   
     return (
-      <View>
-        { component && component[0] &&
-    <Text>This is the Components Screen for {component[0].title} with id {component[0].component_id} from year {component[0].year_from}</Text>
+      <View style={styles.container}>
+        { component && component[0] && (
+        <FlatList style={styles}
+          data={[
+            {
+              key: 0,
+              label: 'Title', 
+              value:component[0].title
+            },
+            { 
+              key: 1,
+              label: 'Id', 
+              value: component[0].component_id
+            },
+            { 
+              key: 2,
+              label: 'Year from', 
+              value: component[0].year_from
+            }
+          ]}
+
+          renderItem={({ item, index, separators }) => (
+            <View style={styles} key={item.key}>
+              <Text style={styles.text}>{`${item.label}: ${item.value}`}</Text>
+            </View>
+          )
+          }
+        >
+        </FlatList>
+        )
         }
     </View>
     )
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#2194f3',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    text: {
+      color: '#fff'
+    }
+  });
 
   export default ComponentDetailScreen
