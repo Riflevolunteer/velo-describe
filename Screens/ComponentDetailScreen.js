@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button, Text, List, FlatList } from 'react-native';
+import { StyleSheet, View, Button, Text, List, FlatList, Image } from 'react-native';
 import config from '../config';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
     const [component, setComponent] = useState()
   
-    const { serverURL } = config
+    const { serverURL, awsURL } = config
 
     useEffect(() => {
       fetch(`${serverURL}/componentdetail?id=${id}`).then(
@@ -19,6 +19,7 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     return (
       <View style={styles.container}>
         { component && component[0] && (
+          <>
         <FlatList style={styles}
           data={[
             {
@@ -35,17 +36,28 @@ const ComponentDetailScreen = ({ route, navigation }) => {
               key: 2,
               label: 'Year from', 
               value: component[0].year_from
+            },
+            {
+              key: 3,
+              label: 'image',
+              value: component[0].image_url
             }
           ]}
 
           renderItem={({ item, index, separators }) => (
+  
             <View style={styles} key={item.key}>
-              <Text style={styles.text}>{`${item.label}: ${item.value}`}</Text>
+              {item.key === 3 ? ( 
+                  <Image source={{ uri: `${awsURL}${item.value}`}} style={{ height:200, width:200 } } /> )
+               : (
+                <Text style={styles.text}>{`${item.label}: ${item.value}`}</Text>)
+              }
             </View>
           )
           }
         >
         </FlatList>
+        </>
         )
         }
     </View>

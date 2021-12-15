@@ -8,8 +8,6 @@ npm run start
 
 # TODO
 
-- Tie S3 bucket to Db and display on detail
-
 - Remove Shit from screens
 
 - Add in Group and description to Component detail page
@@ -21,3 +19,5 @@ npm run start
 - Split out Node Server to seperate app
 
 - migrate db to dynamodb ??
+
+- Make node more stable its shit
