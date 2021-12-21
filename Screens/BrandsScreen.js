@@ -17,14 +17,23 @@ const BrandsScreen = ({ route, navigation }) => {
     }, [])
   
     return (
-      <View>
-    <Text>This is the Brands Screen for {name} with id {id}</Text>
-    { 
-      brands && brands.map(x => 
-        <Button key={x.brand_id} title={x.title} onPress={() => navigation.navigate('ComponentsList', {name: x.title, brand_id: x.brand_id, category_id: id})}/>)
-    }
+      <View style={styles.container}>
+      { 
+        brands && brands.map(x => 
+          <Button key={x.brand_id} title={x.title} onPress={() => navigation.navigate('Components', {name: x.title, brand_id: x.brand_id, category_id: id})}/>)
+      }
     </View>
     )
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#2194f3',
+      color: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
 
   export default BrandsScreen

@@ -8,7 +8,11 @@ npm run start
 
 # TODO
 
-- Remove Shit from screens
+- Sort out header styling
+
+- Split out Node Server to seperate app
+
+- Make node more stable its shit
 
 - Add in Group and description to Component detail page
 
@@ -16,8 +20,6 @@ npm run start
 
 - Add Search feature
 
-- Split out Node Server to seperate app
-
 - migrate db to dynamodb ??
 
-- Make node more stable its shit
+- Nothing to show message ?? in viewsa

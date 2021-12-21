@@ -17,14 +17,23 @@ const ComponentsListScreen = ({ route, navigation }) => {
     }, [])
   
     return (
-      <View>
-    <Text>This is the Components Screen for {name} with id {brand_id}</Text>
-    { 
-      components && components.map(x => 
-        <Button key={x.component_id} title={x.title} onPress={() => navigation.navigate('ComponentDetail', {name: x.title, id: x.component_id})}/>)
-    }
+      <View style={styles.container}>
+      { 
+        components && components.map(x => 
+          <Button key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
+      }
     </View>
     )
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#2194f3',
+      color: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
 
   export default ComponentsListScreen

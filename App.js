@@ -15,9 +15,9 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Brands" component={BrandsScreen} />
-      <Stack.Screen name="ComponentsList" component={ComponentsListScreen} />
-      <Stack.Screen name="ComponentDetail" component={ComponentDetailScreen} />
+      <Stack.Screen name="Brands" component={BrandsScreen} options={({ route }) => ({ title: route.params.name })}/>
+      <Stack.Screen name="Components" component={ComponentsListScreen} options={({ route }) => ({ title: route.params.name })} />
+      <Stack.Screen name="Detail" component={ComponentDetailScreen} options={({ route }) => ({ title: route.params.name })} />
     </Stack.Navigator>
     </NavigationContainer>
   );

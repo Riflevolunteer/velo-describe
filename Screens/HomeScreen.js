@@ -17,7 +17,7 @@ const HomeScreen =({ navigation} ) => {
     }, [])
   
     return ( 
-    <View style={styles}>
+    <View style={styles.container}>
        {
         categories && categories.map(x => 
           <Button key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
@@ -30,7 +30,7 @@ const HomeScreen =({ navigation} ) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#2194f3',
       alignItems: 'center',
       justifyContent: 'center',
     },
