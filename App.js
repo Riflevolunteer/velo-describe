@@ -14,10 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Brands" component={BrandsScreen} options={({ route }) => ({ title: route.params.name })}/>
-      <Stack.Screen name="Components" component={ComponentsListScreen} options={({ route }) => ({ title: route.params.name })} />
-      <Stack.Screen name="Detail" component={ComponentDetailScreen} options={({ route }) => ({ title: route.params.name })} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerTintColor: '#2194f3' }}/>
+      <Stack.Screen name="Brands" component={BrandsScreen} options={({ route }) => ({ title: route.params.name, headerTintColor: '#2194f3' })}/>
+      <Stack.Screen name="Components" component={ComponentsListScreen} options={({ route }) => ({ title: route.params.name, headerTintColor: '#2194f3' })} />
+      <Stack.Screen name="Detail" component={ComponentDetailScreen} options={({ route }) => ({ title: route.params.name, headerTintColor: '#2194f3' })} />
     </Stack.Navigator>
     </NavigationContainer>
   );

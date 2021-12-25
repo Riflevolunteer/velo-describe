@@ -29,16 +29,21 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             },
             { 
               key: 1,
-              label: 'Id', 
-              value: component[0].component_id
+              label: 'Description', 
+              value: component[0].description
             },
             { 
               key: 2,
-              label: 'Year from', 
-              value: component[0].year_from
+              label: 'Manufacturing Years', 
+              value: `${component[0].year_from} - ${component[0].year_to}`
             },
             {
               key: 3,
+              label: 'Group Name',
+              value: component[0].group_title
+            },
+            {
+              key: 4,
               label: 'image',
               value: component[0].image_url
             }
@@ -46,8 +51,8 @@ const ComponentDetailScreen = ({ route, navigation }) => {
 
           renderItem={({ item, index, separators }) => (
   
-            <View style={styles} key={item.key}>
-              {item.key === 3 ? ( 
+            <View style={styles.container} key={item.key}>
+              {item.key === 4 ? ( 
                   <Image source={{ uri: `${awsURL}${item.value}`}} style={{ height:200, width:200 } } /> )
                : (
                 <Text style={styles.text}>{`${item.label}: ${item.value}`}</Text>)

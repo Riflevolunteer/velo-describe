@@ -8,11 +8,9 @@ npm run start
 
 # TODO
 
-- Sort out header styling
-
 - Split out Node Server to seperate app
 
-- Make node more stable its shit
+- Add config to Node Server
 
 - Add in Group and description to Component detail page
 
