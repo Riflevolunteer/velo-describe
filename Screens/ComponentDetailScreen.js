@@ -96,7 +96,7 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     },
     bigText: {
       color: '#fff',
-      fontSize: '18px'
+      fontSize: 18
     }
   });
 
