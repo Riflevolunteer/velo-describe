@@ -4,8 +4,12 @@ npm run start
 
 # TODO
 
-- Add in info from ebay api sale prices?
+- Sort out styling on detail screen
 
 - Add Search feature
 
 - Nothing to show message ?? in views
+
+- Test across platforms style
+
+- add in icon/image to header

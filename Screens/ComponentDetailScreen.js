@@ -5,7 +5,8 @@ import config from '../config';
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
     const [component, setComponent] = useState()
-  
+    const [prices, setPrices] = useState()
+
     const { serverURL, awsURL } = config
 
     useEffect(() => {
@@ -16,6 +17,15 @@ const ComponentDetailScreen = ({ route, navigation }) => {
         .catch(err => console.log(err))
     }, [])
   
+    useEffect(() => {
+      if(component && component[0].search_text) {
+        fetch(`${serverURL}/getMarketPlacePrices?query=${component[0].search_text}`).then(
+          response => response.json()).then(prices => {
+            setPrices(prices)
+          }).catch(err => console.log(err))
+      }
+    }, [component])
+
     return (
       <View style={styles.container}>
         { component && component[0] && (
@@ -62,6 +72,11 @@ const ComponentDetailScreen = ({ route, navigation }) => {
           }
         >
         </FlatList>
+        { prices && (
+        <View style={styles.container}>
+          <Text style={styles.text}>{`Average Market Price: `}</Text><Text style={styles.bigText}>{`${prices.avgPrice} USD`}</Text>
+        </View>
+        )}
         </>
         )
         }
@@ -78,6 +93,10 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     },
     text: {
       color: '#fff'
+    },
+    bigText: {
+      color: '#fff',
+      fontSize: '18px'
     }
   });
 
