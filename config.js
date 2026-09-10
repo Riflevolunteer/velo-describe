@@ -1,5 +1,5 @@
 const config = {
-    serverURL: "http://EXPC02YL10KLVCH:3000",
+    serverURL: "https://63-176-86-130.sslip.io",
     awsURL: "https://velo-describe-components.s3.eu-central-1.amazonaws.com/"
 }
 
