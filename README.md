@@ -4,13 +4,11 @@ npm run start
 
 # TODO
 
-- Sort out styling on detail screen
-
 - Add Search feature
 
-- Nothing to show message ?? in views
+- Fix null in dates
 
-- Test across platforms style
+- icon color needs to have bold bright color maybe a blue i like blue with
 
 - add in icon/image to header
 
