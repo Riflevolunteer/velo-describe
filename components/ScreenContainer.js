@@ -17,18 +17,18 @@ const ScreenContainer = ({ children, scroll = true, contentStyle }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.steel,
+    backgroundColor: theme.colors.background,
   },
   scrollContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
     flexGrow: 1,
-    paddingVertical: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.lg,
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xxl,
   },
   content: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: theme.spacing.lg,
+    paddingTop: theme.spacing.xl,
   },
 });
 

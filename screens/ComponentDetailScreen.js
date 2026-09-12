@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
-import PlateCard from '../components/PlateCard';
-import VintageButton from '../components/VintageButton';
+import Button from '../components/Button';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
@@ -27,15 +26,18 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             {component[0].image_url && (
               <Image source={{ uri: `${awsURL}${component[0].image_url}` }} style={styles.image} />
             )}
-            <PlateCard>
-              <Text style={styles.title}>{component[0].title}</Text>
-              <Text style={styles.body}>{component[0].description}</Text>
-              <Text style={styles.label}>Manufacturing Years</Text>
-              <Text style={styles.body}>{`${component[0].year_from} - ${component[0].year_to}`}</Text>
-              <Text style={styles.label}>Group</Text>
-              <Text style={styles.body}>{component[0].group_title}</Text>
-            </PlateCard>
-            <VintageButton title="Market Appraisal" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Market Appraisal', searchText: component[0].search_text })} />
+            <Text style={styles.eyebrow}>{component[0].group_title}</Text>
+            <Text style={styles.headline}>{component[0].title}</Text>
+            <Text style={styles.body}>{component[0].description}</Text>
+
+            <View style={styles.divider} />
+
+            <Text style={styles.eyebrow}>Manufacturing Years</Text>
+            <Text style={styles.body}>{`${component[0].year_from} - ${component[0].year_to}`}</Text>
+
+            <View style={styles.spacer} />
+
+            <Button title="Price Check" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Price Check', searchText: component[0].search_text })} />
           </>
         )}
       </ScreenContainer>
@@ -44,26 +46,29 @@ const ComponentDetailScreen = ({ route, navigation }) => {
 
   const styles = StyleSheet.create({
     image: {
-      width: 220,
-      height: 220,
-      borderWidth: 3,
-      borderColor: theme.colors.rustDark,
-      borderRadius: 4,
+      width: '100%',
+      height: 260,
+      backgroundColor: theme.colors.surface,
+      marginBottom: theme.spacing.lg,
+    },
+    eyebrow: {
+      ...theme.typography.eyebrow,
+      marginBottom: theme.spacing.xs,
+    },
+    headline: {
+      ...theme.typography.headline,
       marginBottom: theme.spacing.md,
-      backgroundColor: theme.colors.parchment,
-    },
-    title: {
-      ...theme.typography.display,
-      color: theme.colors.ink,
-      fontSize: 20,
-      marginBottom: theme.spacing.sm,
-    },
-    label: {
-      ...theme.typography.label,
-      marginTop: theme.spacing.sm,
     },
     body: {
       ...theme.typography.body,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.colors.border,
+      marginVertical: theme.spacing.lg,
+    },
+    spacer: {
+      height: theme.spacing.xl,
     },
   });
 

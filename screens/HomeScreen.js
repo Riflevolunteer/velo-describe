@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
-import VintageButton from '../components/VintageButton';
+import ListRow from '../components/ListRow';
 
 const HomeScreen =({ navigation} ) => {
 
@@ -21,11 +21,11 @@ const HomeScreen =({ navigation} ) => {
 
     return (
       <ScreenContainer>
-        <Text style={styles.heading}>Velo Describe</Text>
-        <Text style={styles.subheading}>Select a Category</Text>
+        <Text style={styles.eyebrow}>Velo Scout</Text>
+        <Text style={styles.headline}>Categories</Text>
         {
           categories && categories.map(x =>
-            <VintageButton key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
+            <ListRow key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
           )
         }
       </ScreenContainer>
@@ -33,14 +33,13 @@ const HomeScreen =({ navigation} ) => {
   }
 
   const styles = StyleSheet.create({
-    heading: {
-      ...theme.typography.display,
-      fontSize: 30,
+    eyebrow: {
+      ...theme.typography.eyebrow,
       marginBottom: theme.spacing.xs,
     },
-    subheading: {
-      ...theme.typography.label,
-      marginBottom: theme.spacing.md,
+    headline: {
+      ...theme.typography.headline,
+      marginBottom: theme.spacing.lg,
     },
   });
 

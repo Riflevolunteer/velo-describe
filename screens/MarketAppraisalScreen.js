@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Linking, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
-import Rivet from '../components/Rivet';
 
 const MarketAppraisalScreen = ({ route }) => {
     const { searchText } = route.params;
@@ -29,13 +28,9 @@ const MarketAppraisalScreen = ({ route }) => {
     return (
       <View style={styles.container}>
         { prices && (
-          <View style={styles.priceCard}>
-            <Rivet style={{ top: 6, left: 6 }} />
-            <Rivet style={{ top: 6, right: 6 }} />
-            <Rivet style={{ bottom: 6, left: 6 }} />
-            <Rivet style={{ bottom: 6, right: 6 }} />
-            <Text style={styles.label}>Average Market Price</Text>
-            <Text style={styles.priceText}>{`${prices.avgPrice} USD`}</Text>
+          <View style={styles.priceBlock}>
+            <Text style={styles.eyebrow}>Average Market Price</Text>
+            <Text style={styles.price}>{`${prices.avgPrice} USD`}</Text>
           </View>
         )}
         { listings && (
@@ -44,6 +39,7 @@ const MarketAppraisalScreen = ({ route }) => {
             contentContainerStyle={styles.listContent}
             data={listings}
             keyExtractor={(item, index) => `${index}`}
+            ListHeaderComponent={<Text style={styles.eyebrow}>Top Listings</Text>}
             renderItem={({ item }) => (
               <View style={styles.item}>
                 <Text style={styles.itemText} onPress={() => Linking.openURL(item.url)}>{item.title}</Text>
@@ -59,47 +55,39 @@ const MarketAppraisalScreen = ({ route }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.steel,
-      alignItems: 'center',
+      backgroundColor: theme.colors.background,
     },
-    priceCard: {
-      width: '90%',
-      marginTop: theme.spacing.lg,
-      padding: theme.spacing.lg,
-      backgroundColor: theme.colors.parchment,
-      borderWidth: 2,
-      borderColor: theme.colors.rustDark,
-      borderRadius: 4,
-      alignItems: 'center',
-      ...theme.shadow,
+    priceBlock: {
+      paddingHorizontal: theme.spacing.lg,
+      paddingTop: theme.spacing.xl,
+      paddingBottom: theme.spacing.lg,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
     },
-    label: {
-      ...theme.typography.label,
+    eyebrow: {
+      ...theme.typography.eyebrow,
+      marginBottom: theme.spacing.xs,
     },
-    priceText: {
-      ...theme.typography.display,
-      color: theme.colors.ink,
-      fontSize: 24,
-      marginTop: theme.spacing.xs,
+    price: {
+      ...theme.typography.headline,
+      fontSize: 32,
+      color: theme.colors.accent,
     },
     list: {
       width: '100%',
-      marginTop: theme.spacing.md,
     },
     listContent: {
-      paddingHorizontal: theme.spacing.md,
-      paddingBottom: theme.spacing.lg,
+      paddingHorizontal: theme.spacing.lg,
+      paddingTop: theme.spacing.lg,
+      paddingBottom: theme.spacing.xxl,
     },
     item: {
-      padding: theme.spacing.md,
-      marginVertical: theme.spacing.xs,
-      backgroundColor: theme.colors.steelLight,
-      borderLeftWidth: 4,
-      borderLeftColor: theme.colors.rust,
-      borderRadius: 2,
+      paddingVertical: theme.spacing.md,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
     },
     itemText: {
-      ...theme.typography.bodyOnDark,
+      ...theme.typography.body,
     },
   });
 

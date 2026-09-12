@@ -1,55 +1,46 @@
-import { Platform } from 'react-native';
-
 const colors = {
-  steel: '#23272A',
-  steelDark: '#171A1C',
-  steelLight: '#4B4E53',
-  rust: '#B5651D',
-  rustDark: '#8C4A14',
-  patina: '#5B7065',
-  parchment: '#EFE6D0',
-  parchmentDark: '#DCCFAF',
-  ink: '#2B2320',
-  cream: '#F5EEDC',
+  background: '#FFFFFF',
+  surface: '#F6F5F2',
+  ink: '#111111',
+  gray: '#8A8A8A',
+  grayLight: '#B7B5B0',
+  border: '#E4E2DE',
+  accent: '#B5482A',
+  accentDark: '#8C3419',
 };
-
-const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia, serif' });
 
 const typography = {
-  display: {
-    fontFamily: serif,
-    fontWeight: '700',
-    letterSpacing: 1,
-    color: colors.parchment,
-  },
-  label: {
-    fontFamily: serif,
+  eyebrow: {
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 1.5,
-    color: colors.rust,
+    letterSpacing: 2,
+    color: colors.gray,
     fontSize: 12,
   },
+  headline: {
+    fontWeight: '700',
+    letterSpacing: 0.2,
+    color: colors.ink,
+    fontSize: 26,
+  },
+  title: {
+    fontWeight: '600',
+    color: colors.ink,
+    fontSize: 17,
+  },
   body: {
-    fontFamily: serif,
+    fontWeight: '400',
     color: colors.ink,
     fontSize: 15,
+    lineHeight: 21,
   },
-  bodyOnDark: {
-    fontFamily: serif,
-    color: colors.parchment,
-    fontSize: 15,
+  caption: {
+    fontWeight: '400',
+    color: colors.gray,
+    fontSize: 13,
   },
 };
 
-const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 };
+const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 };
 
-const shadow = {
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.35,
-  shadowRadius: 4,
-  elevation: 4,
-};
-
-export default { colors, typography, spacing, shadow, serif };
+export default { colors, typography, spacing };

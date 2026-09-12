@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 import config from '../config'
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
-import VintageButton from '../components/VintageButton';
+import ListRow from '../components/ListRow';
 
 const ComponentsListScreen = ({ route, navigation }) => {
     const { name, brand_id, category_id } = route.params;
@@ -21,19 +21,24 @@ const ComponentsListScreen = ({ route, navigation }) => {
 
     return (
       <ScreenContainer>
-        <Text style={styles.subheading}>{name}</Text>
+        <Text style={styles.eyebrow}>Components</Text>
+        <Text style={styles.headline}>{name}</Text>
         {
           components && components.map(x =>
-            <VintageButton key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
+            <ListRow key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
         }
       </ScreenContainer>
     )
   };
 
   const styles = StyleSheet.create({
-    subheading: {
-      ...theme.typography.label,
-      marginBottom: theme.spacing.md,
+    eyebrow: {
+      ...theme.typography.eyebrow,
+      marginBottom: theme.spacing.xs,
+    },
+    headline: {
+      ...theme.typography.headline,
+      marginBottom: theme.spacing.lg,
     },
   });
 
