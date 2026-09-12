@@ -18,7 +18,7 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     }, [])
   
     useEffect(() => {
-      if(component && component[0].search_text) {
+      if(component && component[0] && component[0].search_text) {
         fetch(`${serverURL}/getMarketPlacePrices?query=${component[0].search_text}`).then(
           response => response.json()).then(prices => {
             setPrices(prices)
