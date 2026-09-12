@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import config from '../config'
+import theme from '../theme';
+import ScreenContainer from '../components/ScreenContainer';
+import VintageButton from '../components/VintageButton';
 
 const ComponentsListScreen = ({ route, navigation }) => {
     const { name, brand_id, category_id } = route.params;
@@ -12,27 +15,25 @@ const ComponentsListScreen = ({ route, navigation }) => {
         response => response.json()).then(components => {
           const sortedComponents = components.sort((a,b) => a.title > b.title && 1 || -1)
           setComponents(sortedComponents)
-         }) 
+         })
         .catch(err => console.log(err))
     }, [])
-  
+
     return (
-      <View style={styles.container}>
-      { 
-        components && components.map(x => 
-          <Button key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
-      }
-    </View>
+      <ScreenContainer>
+        <Text style={styles.subheading}>{name}</Text>
+        {
+          components && components.map(x =>
+            <VintageButton key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
+        }
+      </ScreenContainer>
     )
   };
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#2194f3',
-      color: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+    subheading: {
+      ...theme.typography.label,
+      marginBottom: theme.spacing.md,
     },
   });
 

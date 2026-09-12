@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button, Text, List, FlatList, Image } from 'react-native';
+import { Text, Image, StyleSheet } from 'react-native';
 import config from '../config';
+import theme from '../theme';
+import ScreenContainer from '../components/ScreenContainer';
+import PlateCard from '../components/PlateCard';
+import VintageButton from '../components/VintageButton';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
     const [component, setComponent] = useState()
-    const [prices, setPrices] = useState()
 
     const { serverURL, awsURL } = config
 
@@ -13,91 +16,55 @@ const ComponentDetailScreen = ({ route, navigation }) => {
       fetch(`${serverURL}/componentdetail?id=${id}`).then(
         response => response.json()).then(component => {
           setComponent(component)
-         }) 
+         })
         .catch(err => console.log(err))
     }, [])
-  
-    useEffect(() => {
-      if(component && component[0] && component[0].search_text) {
-        fetch(`${serverURL}/getMarketPlacePrices?query=${component[0].search_text}`).then(
-          response => response.json()).then(prices => {
-            setPrices(prices)
-          }).catch(err => console.log(err))
-      }
-    }, [component])
 
     return (
-      <View style={styles.container}>
+      <ScreenContainer>
         { component && component[0] && (
           <>
-        <FlatList style={styles}
-          data={[
-            {
-              key: 0,
-              label: 'Title', 
-              value:component[0].title
-            },
-            { 
-              key: 1,
-              label: 'Description', 
-              value: component[0].description
-            },
-            { 
-              key: 2,
-              label: 'Manufacturing Years', 
-              value: `${component[0].year_from} - ${component[0].year_to}`
-            },
-            {
-              key: 3,
-              label: 'Group Name',
-              value: component[0].group_title
-            },
-            {
-              key: 4,
-              label: 'image',
-              value: component[0].image_url
-            }
-          ]}
-
-          renderItem={({ item, index, separators }) => (
-  
-            <View style={styles.container} key={item.key}>
-              {item.key === 4 ? ( 
-                  <Image source={{ uri: `${awsURL}${item.value}`}} style={{ height:200, width:200 } } /> )
-               : (
-                <Text style={styles.text}>{`${item.label}: ${item.value}`}</Text>)
-              }
-            </View>
-          )
-          }
-        >
-        </FlatList>
-        { prices && (
-        <View style={styles.container}>
-          <Text style={styles.text}>{`Average Market Price: `}</Text><Text style={styles.bigText}>{`${prices.avgPrice} USD`}</Text>
-        </View>
+            {component[0].image_url && (
+              <Image source={{ uri: `${awsURL}${component[0].image_url}` }} style={styles.image} />
+            )}
+            <PlateCard>
+              <Text style={styles.title}>{component[0].title}</Text>
+              <Text style={styles.body}>{component[0].description}</Text>
+              <Text style={styles.label}>Manufacturing Years</Text>
+              <Text style={styles.body}>{`${component[0].year_from} - ${component[0].year_to}`}</Text>
+              <Text style={styles.label}>Group</Text>
+              <Text style={styles.body}>{component[0].group_title}</Text>
+            </PlateCard>
+            <VintageButton title="Market Appraisal" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Market Appraisal', searchText: component[0].search_text })} />
+          </>
         )}
-        </>
-        )
-        }
-    </View>
+      </ScreenContainer>
     )
   };
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#2194f3',
-      alignItems: 'center',
-      justifyContent: 'center',
+    image: {
+      width: 220,
+      height: 220,
+      borderWidth: 3,
+      borderColor: theme.colors.rustDark,
+      borderRadius: 4,
+      marginBottom: theme.spacing.md,
+      backgroundColor: theme.colors.parchment,
     },
-    text: {
-      color: '#fff'
+    title: {
+      ...theme.typography.display,
+      color: theme.colors.ink,
+      fontSize: 20,
+      marginBottom: theme.spacing.sm,
     },
-    bigText: {
-      color: '#fff',
-      fontSize: 18
-    }
+    label: {
+      ...theme.typography.label,
+      marginTop: theme.spacing.sm,
+    },
+    body: {
+      ...theme.typography.body,
+    },
   });
 
   export default ComponentDetailScreen
