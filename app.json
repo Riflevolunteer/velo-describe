@@ -29,6 +29,12 @@
           "backgroundColor": "#ffffff"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f89c7be3-9370-46e2-8596-10f4fbb56b01"
+      }
+    },
+    "owner": "riflevolunteer"
   }
 }
