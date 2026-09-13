@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Linking, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Linking, Pressable, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 
@@ -36,7 +36,7 @@ const MarketAppraisalScreen = ({ route }) => {
         { listings && listings.length === 0 && (
           <View style={styles.listContent}>
             <Text style={styles.eyebrow}>Top Listings</Text>
-            <Text style={styles.itemText}>No listings found</Text>
+            <Text style={styles.emptyText}>No listings found</Text>
           </View>
         )}
         { listings && listings.length > 0 && (
@@ -48,7 +48,10 @@ const MarketAppraisalScreen = ({ route }) => {
             ListHeaderComponent={<Text style={styles.eyebrow}>Top Listings</Text>}
             renderItem={({ item }) => (
               <View style={styles.item}>
-                <Text style={styles.itemText} onPress={() => Linking.openURL(item.url)}>{item.title}</Text>
+                <Pressable style={styles.itemLinkRow} onPress={() => Linking.openURL(item.url)}>
+                  <Text style={styles.itemText}>{item.title}</Text>
+                  <Text style={styles.itemLinkIcon}>{'↗'}</Text>
+                </Pressable>
                 {item.price != null && (
                   <Text style={styles.itemPrice}>{`${item.price} USD`}</Text>
                 )}
@@ -95,8 +98,23 @@ const MarketAppraisalScreen = ({ route }) => {
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.border,
     },
+    emptyText: {
+      ...theme.typography.body,
+    },
+    itemLinkRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
     itemText: {
       ...theme.typography.body,
+      flexShrink: 1,
+      color: theme.colors.accent,
+      textDecorationLine: 'underline',
+    },
+    itemLinkIcon: {
+      ...theme.typography.body,
+      color: theme.colors.accent,
+      marginLeft: theme.spacing.xs,
     },
     itemPrice: {
       ...theme.typography.body,
