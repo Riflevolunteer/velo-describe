@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Image, StyleSheet } from 'react-native';
+import { Text, Image, View, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
@@ -21,7 +21,10 @@ const HomeScreen =({ navigation} ) => {
 
     return (
       <ScreenContainer>
-        <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+        <View style={styles.brandRow}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+          <Text style={styles.brand}>Velo Scout</Text>
+        </View>
         <Text style={styles.headline}>Categories</Text>
         {
           categories && categories.map(x =>
@@ -33,10 +36,18 @@ const HomeScreen =({ navigation} ) => {
   }
 
   const styles = StyleSheet.create({
+    brandRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: theme.spacing.lg,
+    },
     logo: {
-      width: 56,
-      height: 56,
-      marginBottom: theme.spacing.md,
+      width: 32,
+      height: 32,
+      marginRight: theme.spacing.sm,
+    },
+    brand: {
+      ...theme.typography.eyebrow,
     },
     headline: {
       ...theme.typography.headline,
