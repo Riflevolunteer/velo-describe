@@ -2,9 +2,12 @@ import React from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import theme from '../theme';
 
-const ListRow = ({ title, onPress }) => (
+const ListRow = ({ title, subtitle, onPress }) => (
   <Pressable onPress={onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
-    <Text style={styles.title}>{title}</Text>
+    <View style={styles.textGroup}>
+      <Text style={styles.title}>{title}</Text>
+      {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+    </View>
     <Text style={styles.chevron}>{'→'}</Text>
   </Pressable>
 );
@@ -22,10 +25,17 @@ const styles = StyleSheet.create({
   pressed: {
     backgroundColor: theme.colors.surface,
   },
-  title: {
-    ...theme.typography.title,
+  textGroup: {
     flex: 1,
     paddingRight: theme.spacing.md,
+  },
+  title: {
+    ...theme.typography.title,
+  },
+  subtitle: {
+    ...theme.typography.body,
+    color: theme.colors.grayLight,
+    marginTop: theme.spacing.xs,
   },
   chevron: {
     color: theme.colors.grayLight,

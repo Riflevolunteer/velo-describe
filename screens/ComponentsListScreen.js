@@ -25,7 +25,12 @@ const ComponentsListScreen = ({ route, navigation }) => {
         <Text style={styles.headline}>{name}</Text>
         {
           components && components.map(x =>
-            <ListRow key={x.component_id} title={x.title} onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}/>)
+            <ListRow
+              key={x.component_id}
+              title={x.title}
+              subtitle={`${x.year_from ?? '-'} - ${x.year_to ?? '-'}`}
+              onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}
+            />)
         }
       </ScreenContainer>
     )

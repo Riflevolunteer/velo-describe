@@ -33,7 +33,13 @@ const MarketAppraisalScreen = ({ route }) => {
             <Text style={styles.price}>{`${prices.avgPrice} USD`}</Text>
           </View>
         )}
-        { listings && (
+        { listings && listings.length === 0 && (
+          <View style={styles.listContent}>
+            <Text style={styles.eyebrow}>Top Listings</Text>
+            <Text style={styles.itemText}>No listings found</Text>
+          </View>
+        )}
+        { listings && listings.length > 0 && (
           <FlatList
             style={styles.list}
             contentContainerStyle={styles.listContent}
@@ -43,6 +49,9 @@ const MarketAppraisalScreen = ({ route }) => {
             renderItem={({ item }) => (
               <View style={styles.item}>
                 <Text style={styles.itemText} onPress={() => Linking.openURL(item.url)}>{item.title}</Text>
+                {item.price != null && (
+                  <Text style={styles.itemPrice}>{`${item.price} USD`}</Text>
+                )}
               </View>
             )}
           >
@@ -88,6 +97,11 @@ const MarketAppraisalScreen = ({ route }) => {
     },
     itemText: {
       ...theme.typography.body,
+    },
+    itemPrice: {
+      ...theme.typography.body,
+      color: theme.colors.accent,
+      marginTop: theme.spacing.xs,
     },
   });
 

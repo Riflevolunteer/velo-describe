@@ -33,7 +33,7 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             <View style={styles.divider} />
 
             <Text style={styles.eyebrow}>Manufacturing Years</Text>
-            <Text style={styles.body}>{`${component[0].year_from} - ${component[0].year_to}`}</Text>
+            <Text style={styles.body}>{`${component[0].year_from ?? '-'} - ${component[0].year_to ?? '-'}`}</Text>
 
             <View style={styles.spacer} />
 
