@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 const headerOptions = {
   headerStyle: { backgroundColor: theme.colors.background },
   headerTintColor: theme.colors.ink,
-  headerTitle: () => null,
+  headerTitleStyle: { opacity: 0 },
   headerShadowVisible: true,
 };
 
