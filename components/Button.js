@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     paddingVertical: 16,
-    backgroundColor: theme.colors.ink,
+    backgroundColor: theme.colors.accent,
     alignItems: 'center',
   },
   pressed: {

@@ -5,8 +5,10 @@ const colors = {
   gray: '#8A8A8A',
   grayLight: '#B7B5B0',
   border: '#E4E2DE',
-  accent: '#B5482A',
-  accentDark: '#8C3419',
+  accent: '#0B2D5B',
+  accentDark: '#071D3D',
+  amber: '#D98E2B',
+  amberDark: '#B26F1A',
 };
 
 const typography = {
@@ -14,7 +16,7 @@ const typography = {
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 2,
-    color: colors.gray,
+    color: colors.amberDark,
     fontSize: 12,
   },
   headline: {

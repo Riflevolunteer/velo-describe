@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.xs,
   },
   chevron: {
-    color: theme.colors.grayLight,
+    color: theme.colors.amber,
     fontSize: 16,
   },
 });
