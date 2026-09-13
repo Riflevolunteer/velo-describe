@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, Image, View, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
 import ListRow from '../components/ListRow';
+import FetchState from '../components/FetchState';
+import useFetchJson from '../hooks/useFetchJson';
 
 const HomeScreen =({ navigation} ) => {
 
-    const [categories, setCategories] = useState()
     const { serverURL } = config
-
-    useEffect(() => {
-      fetch(`${serverURL}/categories`).then(
-        response => response.json()).then(cat => {
-          const sortedCategories = cat.sort((a,b) => a.title > b.title && 1 || -1)
-          setCategories(sortedCategories)
-         })
-        .catch(err => console.log(err))
-    }, [])
+    const { data: categories, loading, error } = useFetchJson(`${serverURL}/categories`)
+    const sortedCategories = categories && [...categories].sort((a,b) => a.title > b.title && 1 || -1)
 
     return (
       <ScreenContainer>
@@ -26,8 +20,9 @@ const HomeScreen =({ navigation} ) => {
           <Text style={styles.brand}>Velo Scout</Text>
         </View>
         <Text style={styles.headline}>Categories</Text>
+        <FetchState loading={loading} error={error} />
         {
-          categories && categories.map(x =>
+          sortedCategories && sortedCategories.map(x =>
             <ListRow key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
           )
         }

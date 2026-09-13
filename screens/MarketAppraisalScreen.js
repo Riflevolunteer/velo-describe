@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, FlatList, Linking, Pressable, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
+import FetchState from '../components/FetchState';
+import useFetchJson from '../hooks/useFetchJson';
 
 const MarketAppraisalScreen = ({ route }) => {
     const { searchText } = route.params;
-    const [listings, setListings] = useState()
-    const [prices, setPrices] = useState()
-
     const { serverURL } = config
-
-    useEffect(() => {
-      fetch(`${serverURL}/getTopListings?query=${searchText}`).then(
-        response => response.json()).then(data => {
-          setListings(data.listings)
-        })
-        .catch(err => console.log(err))
-    }, [])
-
-    useEffect(() => {
-      fetch(`${serverURL}/getMarketPlacePrices?query=${searchText}`).then(
-        response => response.json()).then(prices => {
-          setPrices(prices)
-        }).catch(err => console.log(err))
-    }, [])
+    const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?query=${searchText}`)
+    const { data: prices, loading: pricesLoading, error: pricesError } = useFetchJson(`${serverURL}/getMarketPlacePrices?query=${searchText}`)
+    const listings = listingsData && listingsData.listings
 
     return (
       <View style={styles.container}>
+        { (pricesLoading || pricesError) && (
+          <View style={styles.priceBlock}>
+            <Text style={styles.eyebrow}>Average Market Price</Text>
+            <FetchState loading={pricesLoading} error={pricesError} />
+          </View>
+        )}
         { prices && (
           <View style={styles.priceBlock}>
             <Text style={styles.eyebrow}>Average Market Price</Text>
             <Text style={styles.price}>{`${prices.avgPrice} USD`}</Text>
+          </View>
+        )}
+        { (listingsLoading || listingsError) && (
+          <View style={styles.listContent}>
+            <Text style={styles.eyebrow}>Top Listings</Text>
+            <FetchState loading={listingsLoading} error={listingsError} />
           </View>
         )}
         { listings && listings.length === 0 && (

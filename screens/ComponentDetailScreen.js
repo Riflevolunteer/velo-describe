@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
 import Button from '../components/Button';
+import FetchState from '../components/FetchState';
+import useFetchJson from '../hooks/useFetchJson';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
-    const [component, setComponent] = useState()
-
     const { serverURL, awsURL } = config
-
-    useEffect(() => {
-      fetch(`${serverURL}/componentdetail?id=${id}`).then(
-        response => response.json()).then(component => {
-          setComponent(component)
-         })
-        .catch(err => console.log(err))
-    }, [])
+    const { data: component, loading, error } = useFetchJson(`${serverURL}/componentdetail?id=${id}`)
 
     return (
       <ScreenContainer>
+        <FetchState loading={loading} error={error} />
         { component && component[0] && (
           <>
             {component[0].image_url && (
