@@ -14,12 +14,7 @@ const Stack = createNativeStackNavigator();
 const headerOptions = {
   headerStyle: { backgroundColor: theme.colors.background },
   headerTintColor: theme.colors.ink,
-  headerTitleStyle: {
-    fontWeight: '700',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    fontSize: 14,
-  },
+  headerTitle: () => null,
   headerShadowVisible: true,
 };
 
@@ -30,7 +25,7 @@ export default function App() {
     <StatusBar style="dark" />
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} options={{ ...headerOptions, title: 'Velo Scout' }}/>
+      <Stack.Screen name="Home" component={HomeScreen} options={{ ...headerOptions, title: 'Velo Scout', headerShown: false }}/>
       <Stack.Screen name="Brands" component={BrandsScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })}/>
       <Stack.Screen name="Components" component={ComponentsListScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
       <Stack.Screen name="Detail" component={ComponentDetailScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
