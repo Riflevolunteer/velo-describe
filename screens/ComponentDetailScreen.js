@@ -21,7 +21,6 @@ const ComponentDetailScreen = ({ route, navigation }) => {
               <Image source={{ uri: `${awsURL}${component[0].image_url}` }} style={styles.image} />
             )}
             <Text style={styles.eyebrow}>{component[0].group_title}</Text>
-            <Text style={styles.headline}>{component[0].title}</Text>
             <Text style={styles.body}>{component[0].description}</Text>
 
             <View style={styles.divider} />
@@ -47,10 +46,6 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     },
     eyebrow: {
       ...theme.typography.eyebrow,
-      marginBottom: theme.spacing.xs,
-    },
-    headline: {
-      ...theme.typography.headline,
       marginBottom: theme.spacing.md,
     },
     body: {

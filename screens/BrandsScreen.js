@@ -16,7 +16,6 @@ const BrandsScreen = ({ route, navigation }) => {
     return (
       <ScreenContainer>
         <Text style={styles.eyebrow}>Brands</Text>
-        <Text style={styles.headline}>{name}</Text>
         <FetchState loading={loading} error={error} />
         {
           sortedBrands && sortedBrands.map(x =>
@@ -29,10 +28,6 @@ const BrandsScreen = ({ route, navigation }) => {
   const styles = StyleSheet.create({
     eyebrow: {
       ...theme.typography.eyebrow,
-      marginBottom: theme.spacing.xs,
-    },
-    headline: {
-      ...theme.typography.headline,
       marginBottom: theme.spacing.lg,
     },
   });

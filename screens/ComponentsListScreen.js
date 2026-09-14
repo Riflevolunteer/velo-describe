@@ -16,7 +16,6 @@ const ComponentsListScreen = ({ route, navigation }) => {
     return (
       <ScreenContainer>
         <Text style={styles.eyebrow}>Components</Text>
-        <Text style={styles.headline}>{name}</Text>
         <FetchState loading={loading} error={error} />
         {
           sortedComponents && sortedComponents.map(x =>
@@ -34,10 +33,6 @@ const ComponentsListScreen = ({ route, navigation }) => {
   const styles = StyleSheet.create({
     eyebrow: {
       ...theme.typography.eyebrow,
-      marginBottom: theme.spacing.xs,
-    },
-    headline: {
-      ...theme.typography.headline,
       marginBottom: theme.spacing.lg,
     },
   });
