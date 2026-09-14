@@ -6,12 +6,4 @@ npm run start
 
 - Add Search feature
 
-- Fix null in dates
-
-- icon color needs to have bold bright color maybe a blue i like blue with
-
-- add in icon/image to header
-
-- shrink app icon slightly so it doesn't touch the edge of the circular mask on some launchers
-
-- revisit the color scheme again
+- Add titles back at the top on each page
