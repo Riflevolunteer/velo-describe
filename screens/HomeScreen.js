@@ -1,17 +1,24 @@
-import React from 'react';
-import { Text, Image, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, Image, View, TextInput, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
 import ListRow from '../components/ListRow';
 import FetchState from '../components/FetchState';
+import Button from '../components/Button';
 import useFetchJson from '../hooks/useFetchJson';
+import useDebouncedValue from '../hooks/useDebouncedValue';
 
-const HomeScreen =({ navigation} ) => {
+const MIN_QUERY_LENGTH = 3;
 
+const HomeScreen = ({ navigation }) => {
+    const [query, setQuery] = useState('');
     const { serverURL } = config
-    const { data: categories, loading, error } = useFetchJson(`${serverURL}/categories`)
-    const sortedCategories = categories && [...categories].sort((a,b) => a.title > b.title && 1 || -1)
+
+    const debouncedQuery = useDebouncedValue(query.trim(), 300);
+    const isSearching = debouncedQuery.length >= MIN_QUERY_LENGTH;
+    const searchURL = isSearching ? `${serverURL}/searchComponents?q=${encodeURIComponent(debouncedQuery)}` : null;
+    const { data: results, loading, error } = useFetchJson(searchURL);
 
     return (
       <ScreenContainer>
@@ -19,13 +26,38 @@ const HomeScreen =({ navigation} ) => {
           <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
           <Text style={styles.brand}>Velo Scout</Text>
         </View>
-        <Text style={styles.headline}>Categories</Text>
-        <FetchState loading={loading} error={error} />
-        {
-          sortedCategories && sortedCategories.map(x =>
-            <ListRow key={x.title} title={x.title} onPress={() => navigation.navigate('Brands', {name: x.title, id: x.category_id})}/>
-          )
-        }
+
+        <TextInput
+          style={styles.input}
+          placeholder="Search components..."
+          placeholderTextColor={theme.colors.grayLight}
+          value={query}
+          onChangeText={setQuery}
+          autoCorrect={false}
+          autoCapitalize="none"
+        />
+
+        {isSearching && (
+          <View style={styles.results}>
+            <FetchState loading={loading} error={error} />
+            {results && results.length === 0 && (
+              <Text style={styles.emptyText}>No components found</Text>
+            )}
+            {
+              results && results.map(x =>
+                <ListRow
+                  key={x.component_id}
+                  title={x.title}
+                  subtitle={x.description}
+                  meta={x.category_title}
+                  onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}
+                />
+              )
+            }
+          </View>
+        )}
+
+        <Button title="Browse Categories" onPress={() => navigation.navigate('Categories')} style={styles.browseButton} />
       </ScreenContainer>
     )
   }
@@ -44,9 +76,24 @@ const HomeScreen =({ navigation} ) => {
     brand: {
       ...theme.typography.eyebrow,
     },
-    headline: {
-      ...theme.typography.headline,
+    input: {
+      ...theme.typography.body,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 8,
+      paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.sm,
       marginBottom: theme.spacing.lg,
+    },
+    results: {
+      marginBottom: theme.spacing.lg,
+    },
+    emptyText: {
+      ...theme.typography.body,
+      color: theme.colors.gray,
+    },
+    browseButton: {
+      marginTop: theme.spacing.md,
     },
   });
 

@@ -7,6 +7,7 @@ const useFetchJson = (url) => {
   useEffect(() => {
     setData(undefined);
     setError(false);
+    if (!url) return;
     fetch(url)
       .then(response => {
         if (!response.ok) throw new Error(`Request failed: ${response.status}`);
