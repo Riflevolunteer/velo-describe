@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import * as Updates from 'expo-updates';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -19,6 +21,26 @@ const headerOptions = {
 };
 
 export default function App() {
+
+  useEffect(() => {
+    if (__DEV__) return;
+
+    Updates.checkForUpdateAsync()
+      .then(({ isAvailable }) => {
+        if (!isAvailable) return;
+        return Updates.fetchUpdateAsync().then(() => {
+          Alert.alert(
+            'Update available',
+            'A new version of Velo Scout has been downloaded. Restart now to use it?',
+            [
+              { text: 'Later', style: 'cancel' },
+              { text: 'Restart', onPress: () => Updates.reloadAsync() },
+            ]
+          );
+        });
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <>
