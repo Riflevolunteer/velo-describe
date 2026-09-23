@@ -6,6 +6,8 @@ npm run start
 
 - Add Info Screen or Splash screen to explain app
 
+- Remove grey lines when no data in component details and list
+
 - Add Groupset page and links to group Components
 
 - Split Components into a seperatde Tab 
