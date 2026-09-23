@@ -8,7 +8,7 @@ npm run start
 
 - Remove grey lines when no data in component details and list
 
-- Add Groupset page and links to group Components
+- Add in Text for when no components in List
 
 - Split Components into a seperatde Tab 
 
