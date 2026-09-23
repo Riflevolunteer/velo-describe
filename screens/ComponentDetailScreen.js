@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, Pressable, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
@@ -20,7 +20,15 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             {component[0].image_url && (
               <Image source={{ uri: `${awsURL}${component[0].image_url}` }} style={styles.image} />
             )}
-            <Text style={styles.eyebrow}>{component[0].group_title}</Text>
+            {component[0].group_id && component[0].group_title && (
+              <Pressable
+                onPress={() => navigation.navigate('Group', { name: component[0].group_title, id: component[0].group_id })}
+                style={({ pressed }) => [styles.groupLink, pressed && styles.groupLinkPressed]}
+              >
+                <Text style={styles.eyebrow}>{component[0].group_title}</Text>
+                <Text style={styles.groupChevron}>{'→'}</Text>
+              </Pressable>
+            )}
             <Text style={styles.body}>{component[0].description}</Text>
 
             <View style={styles.divider} />
@@ -46,6 +54,20 @@ const ComponentDetailScreen = ({ route, navigation }) => {
     },
     eyebrow: {
       ...theme.typography.eyebrow,
+      marginBottom: theme.spacing.md,
+    },
+    groupLink: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'flex-start',
+    },
+    groupLinkPressed: {
+      opacity: 0.6,
+    },
+    groupChevron: {
+      color: theme.colors.amber,
+      fontSize: 14,
+      marginLeft: theme.spacing.sm,
       marginBottom: theme.spacing.md,
     },
     body: {
