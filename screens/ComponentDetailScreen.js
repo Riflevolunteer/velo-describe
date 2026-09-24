@@ -6,6 +6,7 @@ import ScreenContainer from '../components/ScreenContainer';
 import Button from '../components/Button';
 import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
+import formatYears from '../utils/formatYears';
 
 const ComponentDetailScreen = ({ route, navigation }) => {
     const { name, id } = route.params;
@@ -31,10 +32,13 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             )}
             <Text style={styles.body}>{component[0].description}</Text>
 
-            <View style={styles.divider} />
-
-            <Text style={styles.eyebrow}>Manufacturing Years</Text>
-            <Text style={styles.body}>{`${component[0].year_from ?? '-'} - ${component[0].year_to ?? '-'}`}</Text>
+            {formatYears(component[0].year_from, component[0].year_to) && (
+              <>
+                <View style={styles.divider} />
+                <Text style={styles.eyebrow}>Manufacturing Years</Text>
+                <Text style={styles.body}>{formatYears(component[0].year_from, component[0].year_to)}</Text>
+              </>
+            )}
 
             <View style={styles.spacer} />
 

@@ -6,6 +6,7 @@ import ScreenContainer from '../components/ScreenContainer';
 import ListRow from '../components/ListRow';
 import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
+import formatYears from '../utils/formatYears';
 
 const ComponentGroupScreen = ({ route, navigation }) => {
     const { id } = route.params;
@@ -13,18 +14,17 @@ const ComponentGroupScreen = ({ route, navigation }) => {
     const { data, loading, error } = useFetchJson(`${serverURL}/componentGroup?id=${id}`)
     const group = data?.group
     const components = data?.components ?? []
+    const groupYears = group && formatYears(group.year_from, group.year_to)
 
     return (
       <ScreenContainer>
         <FetchState loading={loading} error={error} />
         { group && (
           <>
-            {(group.year_from || group.year_to || group.description) && (
+            {(groupYears || group.description) && (
               <>
                 <Text style={styles.eyebrow}>Groupset</Text>
-                {(group.year_from || group.year_to) && (
-                  <Text style={styles.body}>{`${group.year_from ?? '-'} - ${group.year_to ?? '-'}`}</Text>
-                )}
+                {groupYears && <Text style={styles.body}>{groupYears}</Text>}
                 {group.description && <Text style={styles.body}>{group.description}</Text>}
               </>
             )}
@@ -40,7 +40,7 @@ const ComponentGroupScreen = ({ route, navigation }) => {
             <ListRow
               key={x.component_id}
               title={x.title}
-              subtitle={`${x.year_from ?? '-'} - ${x.year_to ?? '-'}`}
+              subtitle={formatYears(x.year_from, x.year_to)}
               meta={x.category_title}
               onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}
             />)

@@ -6,6 +6,7 @@ import ScreenContainer from '../components/ScreenContainer';
 import ListRow from '../components/ListRow';
 import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
+import formatYears from '../utils/formatYears';
 
 const ComponentsListScreen = ({ route, navigation }) => {
     const { name, brand_id, category_id } = route.params;
@@ -22,7 +23,7 @@ const ComponentsListScreen = ({ route, navigation }) => {
             <ListRow
               key={x.component_id}
               title={x.title}
-              subtitle={`${x.year_from ?? '-'} - ${x.year_to ?? '-'}`}
+              subtitle={formatYears(x.year_from, x.year_to)}
               onPress={() => navigation.navigate('Detail', {name: x.title, id: x.component_id})}
             />)
         }
