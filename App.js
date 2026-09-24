@@ -10,6 +10,7 @@ import BrandsScreen from './screens/BrandsScreen';
 import ComponentsListScreen from './screens/ComponentsListScreen';
 import ComponentDetailScreen from './screens/ComponentDetailScreen';
 import ComponentGroupScreen from './screens/ComponentGroupScreen';
+import AboutScreen from './screens/AboutScreen';
 import MarketAppraisalScreen from './screens/MarketAppraisalScreen';
 import theme from './theme';
 
@@ -54,6 +55,7 @@ export default function App() {
       <Stack.Screen name="Components" component={ComponentsListScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
       <Stack.Screen name="Detail" component={ComponentDetailScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
       <Stack.Screen name="Group" component={ComponentGroupScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
+      <Stack.Screen name="About" component={AboutScreen} options={{ ...headerOptions, title: 'About' }} />
       <Stack.Screen name="MarketAppraisal" component={MarketAppraisalScreen} options={({ route }) => ({ ...headerOptions, title: route.params.name })} />
     </Stack.Navigator>
     </NavigationContainer>

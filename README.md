@@ -4,10 +4,6 @@ npm run start
 
 # TODO
 
-- Add Info Screen or Splash screen to explain app
-
-- Remove grey lines when no data in component details and list
-
 - Add in Text for when no components in List
 
 - Split Components into a seperatde Tab 

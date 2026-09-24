@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Image, View, TextInput, StyleSheet } from 'react-native';
+import { Text, Image, View, TextInput, Pressable, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
@@ -25,7 +25,15 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.brandRow}>
           <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
           <Text style={styles.brand}>Velo Scout</Text>
+          <Pressable
+            onPress={() => navigation.navigate('About', { name: 'About' })}
+            style={({ pressed }) => [styles.aboutLink, pressed && styles.aboutLinkPressed]}
+            hitSlop={8}
+          >
+            <Text style={styles.aboutText}>About</Text>
+          </Pressable>
         </View>
+        <Text style={styles.tagline}>Identify vintage bicycle components and see what they're selling for.</Text>
 
         <TextInput
           style={styles.input}
@@ -75,6 +83,24 @@ const HomeScreen = ({ navigation }) => {
     },
     brand: {
       ...theme.typography.eyebrow,
+      flex: 1,
+    },
+    aboutLink: {
+      paddingVertical: theme.spacing.xs,
+    },
+    aboutLinkPressed: {
+      opacity: 0.6,
+    },
+    aboutText: {
+      ...theme.typography.caption,
+      color: theme.colors.accent,
+      fontWeight: '600',
+    },
+    tagline: {
+      ...theme.typography.body,
+      color: theme.colors.gray,
+      marginTop: -theme.spacing.sm,
+      marginBottom: theme.spacing.lg,
     },
     input: {
       ...theme.typography.body,
