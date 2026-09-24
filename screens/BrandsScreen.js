@@ -17,6 +17,9 @@ const BrandsScreen = ({ route, navigation }) => {
       <ScreenContainer>
         <Text style={styles.eyebrow}>Brands</Text>
         <FetchState loading={loading} error={error} />
+        {brands && brands.length === 0 && (
+          <Text style={styles.empty}>No brands listed in this category yet</Text>
+        )}
         {
           sortedBrands && sortedBrands.map(x =>
             <ListRow key={x.brand_id} title={x.title} onPress={() => navigation.navigate('Components', {name: x.title, brand_id: x.brand_id, category_id: id})}/>)
@@ -29,6 +32,12 @@ const BrandsScreen = ({ route, navigation }) => {
     eyebrow: {
       ...theme.typography.eyebrow,
       marginBottom: theme.spacing.lg,
+    },
+    empty: {
+      ...theme.typography.body,
+      color: theme.colors.gray,
+      textAlign: 'center',
+      paddingVertical: theme.spacing.xl,
     },
   });
 

@@ -18,6 +18,9 @@ const ComponentsListScreen = ({ route, navigation }) => {
       <ScreenContainer>
         <Text style={styles.eyebrow}>Components</Text>
         <FetchState loading={loading} error={error} />
+        {components && components.length === 0 && (
+          <Text style={styles.empty}>No components listed for this brand yet</Text>
+        )}
         {
           sortedComponents && sortedComponents.map(x =>
             <ListRow
@@ -35,6 +38,12 @@ const ComponentsListScreen = ({ route, navigation }) => {
     eyebrow: {
       ...theme.typography.eyebrow,
       marginBottom: theme.spacing.lg,
+    },
+    empty: {
+      ...theme.typography.body,
+      color: theme.colors.gray,
+      textAlign: 'center',
+      paddingVertical: theme.spacing.xl,
     },
   });
 
