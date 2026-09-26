@@ -41,13 +41,28 @@ const AboutScreen = () => {
     <ScreenContainer>
       <Section title="What Velo Scout does">
         <Paragraph>
-          Velo Scout is a reference guide to classic bicycle components: cranksets, derailleurs, brakes, hubs, saddles and more, from the 1940s onward. Look up a part to find out who made it, when it was produced, and which groupset it belonged to.
+          Velo Scout is a reference guide to vintage bicycles and the parts they were built with. Start with a bike: find a model from the original manufacturer catalogues and see exactly how it was specified, from frame tubing and groupset to saddle, pedals and toe clips.
+        </Paragraph>
+        <Paragraph>
+          Behind that sits a catalogue of classic components: cranksets, derailleurs, brakes, hubs, saddles and more, from the 1940s onward. Each entry tells you who made it, when it was produced, and which groupset it belonged to. Wherever a bike's spec matches a component we have on record, the two are linked.
         </Paragraph>
       </Section>
 
-      <Section title="Finding a component">
+      <Section title="Bikes">
         <Bullet label="Search">
-          {' — type at least three characters of a name, brand or model into the box on the home screen. Results update as you type.'}
+          {' — type a model name or brand into the box on the Bikes tab (two characters is enough, since many models are short codes like "Z 77").'}
+        </Bullet>
+        <Bullet label="Browse">
+          {' — tap Browse Brands, pick a manufacturer, then a model, to see its full specification sheet.'}
+        </Bullet>
+        <Bullet label="Linked parts">
+          {' — spec lines shown in blue with an arrow are parts we have matched to our component catalogue. Tap one to open that component. "None Specified" means the original catalogue listed nothing for that item.'}
+        </Bullet>
+      </Section>
+
+      <Section title="Components">
+        <Bullet label="Search">
+          {' — type at least three characters of a name, brand or model into the box on the Components tab. Results update as you type.'}
         </Bullet>
         <Bullet label="Browse">
           {' — tap Browse Categories, choose a component type, then a brand, to see everything we have listed.'}
@@ -68,7 +83,7 @@ const AboutScreen = () => {
 
       <Section title="About the data">
         <Paragraph>
-          Component details are compiled from public catalogues and reference sources, including VeloBase.com. Coverage is broadest for road components from the 1970s to the 1990s, and some entries are missing years or images. Spotted a mistake? Get in touch below.
+          Bike specifications are transcribed from original manufacturer catalogues, so they reflect what was printed at the time, including the odd gap or period spelling. Component details are compiled from public catalogues and reference sources, including VeloBase.com. Coverage is broadest for road bikes and components from the 1970s to the 1990s, and some entries are missing years or images. Spotted a mistake? Get in touch below.
         </Paragraph>
       </Section>
 

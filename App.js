@@ -14,6 +14,10 @@ import ComponentDetailScreen from './screens/ComponentDetailScreen';
 import ComponentGroupScreen from './screens/ComponentGroupScreen';
 import MarketAppraisalScreen from './screens/MarketAppraisalScreen';
 import AboutScreen from './screens/AboutScreen';
+import BikesHomeScreen from './screens/BikesHomeScreen';
+import BikeBrandsScreen from './screens/BikeBrandsScreen';
+import BikesScreen from './screens/BikesScreen';
+import BikeDetailScreen from './screens/BikeDetailScreen';
 import theme from './theme';
 
 const Stack = createNativeStackNavigator();
@@ -39,7 +43,20 @@ const ComponentsStack = () => (
   </Stack.Navigator>
 );
 
+const BikesStack = () => (
+  <Stack.Navigator initialRouteName="BikesHome">
+    <Stack.Screen name="BikesHome" component={BikesHomeScreen} options={{ ...headerOptions, title: 'Velo Scout', headerShown: false }}/>
+    <Stack.Screen name="BikeBrands" component={BikeBrandsScreen} options={{ ...headerOptions, title: 'Brands' }}/>
+    <Stack.Screen name="Bikes" component={BikesScreen} options={titleFromRoute} />
+    <Stack.Screen name="BikeDetail" component={BikeDetailScreen} options={titleFromRoute} />
+    <Stack.Screen name="Detail" component={ComponentDetailScreen} options={titleFromRoute} />
+    <Stack.Screen name="Group" component={ComponentGroupScreen} options={titleFromRoute} />
+    <Stack.Screen name="MarketAppraisal" component={MarketAppraisalScreen} options={titleFromRoute} />
+  </Stack.Navigator>
+);
+
 const TAB_ICONS = {
+  BikesTab: ['bicycle', 'bicycle-outline'],
   ComponentsTab: ['cog', 'cog-outline'],
   AboutTab: ['information-circle', 'information-circle-outline'],
 };
@@ -85,6 +102,7 @@ export default function App() {
     <StatusBar style="dark" />
     <NavigationContainer>
     <Tab.Navigator screenOptions={tabScreenOptions}>
+      <Tab.Screen name="BikesTab" component={BikesStack} options={{ title: 'Bikes', headerShown: false }} />
       <Tab.Screen name="ComponentsTab" component={ComponentsStack} options={{ title: 'Components', headerShown: false }} />
       <Tab.Screen name="AboutTab" component={AboutScreen} options={{ title: 'About' }} />
     </Tab.Navigator>
