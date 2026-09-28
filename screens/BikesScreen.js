@@ -6,7 +6,6 @@ import ScreenContainer from '../components/ScreenContainer';
 import ListRow from '../components/ListRow';
 import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
-import formatYears from '../utils/formatYears';
 
 const BikesScreen = ({ route, navigation }) => {
     const { brand_id } = route.params;
@@ -25,7 +24,7 @@ const BikesScreen = ({ route, navigation }) => {
             <ListRow
               key={x.bike_id}
               title={x.title}
-              subtitle={formatYears(x.year_from, x.year_to)}
+              subtitle={x.year_from}
               meta={x.category}
               onPress={() => navigation.navigate('BikeDetail', {name: x.title, id: x.bike_id})}
             />)

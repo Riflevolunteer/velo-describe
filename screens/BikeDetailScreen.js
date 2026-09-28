@@ -6,7 +6,6 @@ import ScreenContainer from '../components/ScreenContainer';
 import FetchState from '../components/FetchState';
 import SpecRow from '../components/SpecRow';
 import useFetchJson from '../hooks/useFetchJson';
-import formatYears from '../utils/formatYears';
 
 const EMPTY_VALUES = new Set(['', 'n/a', 'none', 'not specified', 'unspecified', '-']);
 
@@ -36,7 +35,7 @@ const BikeDetailScreen = ({ route, navigation }) => {
           <>
             <Text style={styles.headline}>{[bike.brand_title, bike.category].filter(Boolean).join(' · ')}</Text>
 
-            <Fact label="Years" value={formatYears(bike.year_from, bike.year_to)} />
+            <Fact label="Catalogue year" value={bike.year_from} />
             <Fact label="Sizes" value={bike.sizes} />
             <Fact label="Colours" value={bike.colors} />
             <Fact label="Weight" value={bike.weight} />

@@ -8,7 +8,6 @@ import FetchState from '../components/FetchState';
 import Button from '../components/Button';
 import useFetchJson from '../hooks/useFetchJson';
 import useDebouncedValue from '../hooks/useDebouncedValue';
-import formatYears from '../utils/formatYears';
 
 const MIN_QUERY_LENGTH = 2;
 
@@ -53,7 +52,7 @@ const BikesHomeScreen = ({ navigation }) => {
                   key={x.bike_id}
                   title={x.title}
                   subtitle={[x.brand_title, x.category].filter(Boolean).join(' · ')}
-                  meta={formatYears(x.year_from, x.year_to)}
+                  meta={x.year_from}
                   onPress={() => navigation.navigate('BikeDetail', {name: x.title, id: x.bike_id})}
                 />
               )
