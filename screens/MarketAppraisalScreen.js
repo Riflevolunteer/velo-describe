@@ -52,7 +52,7 @@ const MarketAppraisalScreen = ({ route }) => {
                   <Text style={styles.itemLinkIcon}>{'↗'}</Text>
                 </Pressable>
                 {item.price != null && (
-                  <Text style={styles.itemPrice}>{`${item.price} USD`}</Text>
+                  <Text style={styles.itemPrice}>{item.currency ? `${item.price} ${item.currency}` : item.price}</Text>
                 )}
               </View>
             )}
