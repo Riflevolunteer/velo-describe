@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import config from '../config'
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
@@ -7,10 +7,31 @@ import ListRow from '../components/ListRow';
 import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
 
+const groupBikesByYear = (bikes) => {
+    const groups = new Map();
+    bikes.forEach(bike => {
+      const year = bike.year_from || 'Unknown';
+      if (!groups.has(year)) groups.set(year, []);
+      groups.get(year).push(bike);
+    });
+
+    return Array.from(groups.entries())
+      .sort(([yearA], [yearB]) => {
+        if (yearA === 'Unknown') return 1;
+        if (yearB === 'Unknown') return -1;
+        return Number(yearA) - Number(yearB);
+      })
+      .map(([year, yearBikes]) => ({
+        year,
+        bikes: yearBikes.slice().sort((a, b) => a.title.localeCompare(b.title)),
+      }));
+  };
+
 const BikesScreen = ({ route, navigation }) => {
     const { brand_id } = route.params;
     const { serverURL } = config
     const { data: bikes, loading, error } = useFetchJson(`${serverURL}/bikesbybrand?brand_id=${brand_id}`)
+    const groups = bikes && groupBikesByYear(bikes)
 
     return (
       <ScreenContainer>
@@ -20,14 +41,20 @@ const BikesScreen = ({ route, navigation }) => {
           <Text style={styles.empty}>No bikes listed for this brand yet</Text>
         )}
         {
-          bikes && bikes.map(x =>
-            <ListRow
-              key={x.bike_id}
-              title={x.title}
-              subtitle={x.year_from}
-              meta={x.category}
-              onPress={() => navigation.navigate('BikeDetail', {name: x.title, id: x.bike_id})}
-            />)
+          groups && groups.map(group => (
+            <View key={group.year}>
+              <Text style={styles.yearLabel}>{group.year}</Text>
+              {
+                group.bikes.map(x =>
+                  <ListRow
+                    key={x.bike_id}
+                    title={x.title}
+                    meta={x.category}
+                    onPress={() => navigation.navigate('BikeDetail', {name: x.title, id: x.bike_id})}
+                  />)
+              }
+            </View>
+          ))
         }
       </ScreenContainer>
     )
@@ -37,6 +64,11 @@ const BikesScreen = ({ route, navigation }) => {
     eyebrow: {
       ...theme.typography.eyebrow,
       marginBottom: theme.spacing.lg,
+    },
+    yearLabel: {
+      ...theme.typography.headline,
+      marginTop: theme.spacing.lg,
+      marginBottom: theme.spacing.xs,
     },
     empty: {
       ...theme.typography.body,
