@@ -43,7 +43,9 @@ const BikesScreen = ({ route, navigation }) => {
         {
           groups && groups.map(group => (
             <View key={group.year}>
-              <Text style={styles.yearLabel}>{group.year}</Text>
+              <View style={styles.yearHeader}>
+                <Text style={styles.yearLabel}>{group.year}</Text>
+              </View>
               {
                 group.bikes.map(x =>
                   <ListRow
@@ -65,10 +67,18 @@ const BikesScreen = ({ route, navigation }) => {
       ...theme.typography.eyebrow,
       marginBottom: theme.spacing.lg,
     },
+    yearHeader: {
+      marginTop: theme.spacing.lg,
+      marginHorizontal: -theme.spacing.lg,
+      paddingHorizontal: theme.spacing.lg,
+      paddingVertical: theme.spacing.sm,
+      marginBottom: theme.spacing.xs,
+      backgroundColor: theme.colors.surface,
+      borderBottomWidth: 2,
+      borderBottomColor: theme.colors.accent,
+    },
     yearLabel: {
       ...theme.typography.headline,
-      marginTop: theme.spacing.lg,
-      marginBottom: theme.spacing.xs,
     },
     empty: {
       ...theme.typography.body,
