@@ -8,7 +8,7 @@ import useFetchJson from '../hooks/useFetchJson';
 const MarketAppraisalScreen = ({ route }) => {
     const { searchText } = route.params;
     const { serverURL } = config
-    const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?query=${searchText}`)
+    const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?query=${searchText}&marketplace=ALL`)
     const { data: prices, loading: pricesLoading, error: pricesError } = useFetchJson(`${serverURL}/getMarketPlacePrices?query=${searchText}`)
     const listings = listingsData && listingsData.listings
 
