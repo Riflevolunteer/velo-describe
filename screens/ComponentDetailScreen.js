@@ -5,6 +5,7 @@ import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
 import Button from '../components/Button';
 import FetchState from '../components/FetchState';
+import SourceNote from '../components/SourceNote';
 import useFetchJson from '../hooks/useFetchJson';
 import formatYears from '../utils/formatYears';
 
@@ -43,6 +44,8 @@ const ComponentDetailScreen = ({ route, navigation }) => {
             <View style={styles.spacer} />
 
             <Button title="Price Check" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Price Check', searchText: component[0].search_text })} />
+
+            <SourceNote label={component[0].source_label} />
           </>
         )}
       </ScreenContainer>

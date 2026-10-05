@@ -5,6 +5,7 @@ import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
 import FetchState from '../components/FetchState';
 import SpecRow from '../components/SpecRow';
+import SourceNote from '../components/SourceNote';
 import useFetchJson from '../hooks/useFetchJson';
 
 const EMPTY_VALUES = new Set(['', 'n/a', 'none', 'not specified', 'unspecified', '-']);
@@ -56,6 +57,8 @@ const BikeDetailScreen = ({ route, navigation }) => {
                   : undefined}
               />
             )}
+
+            <SourceNote label={bike.source_label} />
           </>
         )}
       </ScreenContainer>
