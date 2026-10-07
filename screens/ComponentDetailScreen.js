@@ -43,7 +43,7 @@ const ComponentDetailScreen = ({ route, navigation }) => {
 
             <View style={styles.spacer} />
 
-            <Button title="Price Check" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Price Check', searchText: component[0].search_text })} />
+            <Button title="Marketplace" onPress={() => navigation.navigate('MarketAppraisal', { name: 'Marketplace', searchText: component[0].search_text })} />
 
             <SourceNote label={component[0].source_label} />
           </>

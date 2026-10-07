@@ -9,23 +9,10 @@ const MarketAppraisalScreen = ({ route }) => {
     const { searchText } = route.params;
     const { serverURL } = config
     const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?query=${searchText}&marketplace=ALL`)
-    const { data: prices, loading: pricesLoading, error: pricesError } = useFetchJson(`${serverURL}/getMarketPlacePrices?query=${searchText}`)
     const listings = listingsData && listingsData.listings
 
     return (
       <View style={styles.container}>
-        { (pricesLoading || pricesError) && (
-          <View style={styles.priceBlock}>
-            <Text style={styles.eyebrow}>Average Market Price</Text>
-            <FetchState loading={pricesLoading} error={pricesError} />
-          </View>
-        )}
-        { prices && (
-          <View style={styles.priceBlock}>
-            <Text style={styles.eyebrow}>Average Market Price</Text>
-            <Text style={styles.price}>{`${prices.avgPrice} USD`}</Text>
-          </View>
-        )}
         { (listingsLoading || listingsError) && (
           <View style={styles.listContent}>
             <Text style={styles.eyebrow}>Top Listings</Text>
@@ -68,21 +55,9 @@ const MarketAppraisalScreen = ({ route }) => {
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    priceBlock: {
-      paddingHorizontal: theme.spacing.lg,
-      paddingTop: theme.spacing.xl,
-      paddingBottom: theme.spacing.lg,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.border,
-    },
     eyebrow: {
       ...theme.typography.eyebrow,
       marginBottom: theme.spacing.xs,
-    },
-    price: {
-      ...theme.typography.headline,
-      fontSize: 32,
-      color: theme.colors.accent,
     },
     list: {
       width: '100%',

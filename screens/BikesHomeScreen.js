@@ -27,7 +27,7 @@ const BikesHomeScreen = ({ navigation }) => {
           <Text style={styles.brand}>Velo Scout</Text>
         </View>
         <Text style={styles.tagline}>
-          Original catalogue specifications for vintage bikes, model by model. Every part we can identify links through to our component guide, where you can see its history and check what it sells for today.
+          Original catalogue specs for vintage bikes, with every part linked to its history and current market listings.
         </Text>
 
         <TextInput

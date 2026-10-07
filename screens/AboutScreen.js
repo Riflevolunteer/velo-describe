@@ -41,49 +41,46 @@ const AboutScreen = () => {
     <ScreenContainer>
       <Section title="What Velo Scout does">
         <Paragraph>
-          Velo Scout is a reference guide to vintage bicycles and the parts they were built with. Start with a bike: find a model from the original manufacturer catalogues and see exactly how it was specified, from frame tubing and groupset to saddle, pedals and toe clips.
-        </Paragraph>
-        <Paragraph>
-          Behind that sits a catalogue of classic components: cranksets, derailleurs, brakes, hubs, saddles and more, from the 1940s onward. Each entry tells you who made it, when it was produced, and which groupset it belonged to. Wherever a bike's spec matches a component we have on record, the two are linked.
+          A reference guide to vintage bikes and the parts they were built with. Find a model from the original catalogues and see exactly how it was specified, then dig into the classic components behind it.
         </Paragraph>
       </Section>
 
       <Section title="Bikes">
         <Bullet label="Search">
-          {' — type a model name or brand into the box on the Bikes tab (two characters is enough, since many models are short codes like "Z 77").'}
+          {' — enter a model or brand (two characters is enough, handy for codes like "Z 77").'}
         </Bullet>
         <Bullet label="Browse">
-          {' — tap Browse Brands, pick a manufacturer, then a model, to see its full specification sheet.'}
+          {' — pick a manufacturer, then a model, for its full spec sheet.'}
         </Bullet>
         <Bullet label="Linked parts">
-          {' — spec lines shown in blue with an arrow are parts we have matched to our component catalogue. Tap one to open that component. "None Specified" means the original catalogue listed nothing for that item.'}
+          {' — blue spec lines with an arrow match a component in our catalogue. Tap to open it. "None Specified" means the catalogue listed nothing.'}
         </Bullet>
       </Section>
 
       <Section title="Components">
         <Bullet label="Search">
-          {' — type at least three characters of a name, brand or model into the box on the Components tab. Results update as you type.'}
+          {' — enter at least three characters of a name, brand or model.'}
         </Bullet>
         <Bullet label="Browse">
-          {' — tap Browse Categories, choose a component type, then a brand, to see everything we have listed.'}
+          {' — choose a category, then a brand.'}
         </Bullet>
         <Bullet label="Groupsets">
-          {' — when a part belongs to a named group (Campagnolo Athena, Shimano 600, and so on), tap the group name on its detail page to see the other components in that family.'}
+          {' — tap a group name (Campagnolo Athena, Shimano 600…) to see the rest of that family.'}
         </Bullet>
       </Section>
 
-      <Section title="Price Check">
+      <Section title="Marketplace">
         <Paragraph>
-          Each component page has a Price Check button. It searches current marketplace listings for that part and shows an average asking price alongside the top matching listings. Prices are what sellers are asking, not what items have sold for, and they change constantly, so treat them as a guide.
+          The Marketplace button on a component page shows current listings for that part. Prices are asking prices, not sold prices, so treat them as a guide.
         </Paragraph>
         <Paragraph>
-          Listings link out to eBay. Velo Scout takes part in the eBay Partner Network; if you buy something through one of these links we may earn a small commission at no extra cost to you. This doesn't affect which listings are shown.
+          Listings link out to eBay. Velo Scout takes part in the eBay Partner Network, so we may earn a small commission on purchases at no extra cost to you. It doesn't affect which listings appear.
         </Paragraph>
       </Section>
 
       <Section title="About the data">
         <Paragraph>
-          Bike specifications are transcribed from original manufacturer catalogues, so they reflect what was printed at the time, including the odd gap or period spelling. Component details are compiled from public catalogues and reference sources, including VeloBase.com. Coverage is broadest for road bikes and components from the 1970s to the 1990s, and some entries are missing years or images. Spotted a mistake? Get in touch below.
+          Bike specs are transcribed from original manufacturer catalogues, including the odd gap or period spelling. Component details come from public catalogues and reference sources, including VeloBase.com. Coverage is strongest for 1970s–1990s road bikes, and some entries lack years or images. Spotted a mistake? Get in touch below.
         </Paragraph>
       </Section>
 
