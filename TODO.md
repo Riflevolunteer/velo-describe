@@ -15,3 +15,5 @@
 - Reword About screen copy to be snappier and shorter (`screens/AboutScreen.js`).
 
 - Reword the tagline above the search box on the bike specs screen to be snappier and shorter (`screens/BikesHomeScreen.js`, the "Original catalogue specifications..." text above the search input).
+
+- Investigate splitting bike specs by country (or surfacing country somewhere in the data/UI) — the same brand/year can have different catalogues and different models per country.
