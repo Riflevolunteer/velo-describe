@@ -17,3 +17,5 @@
 - ~~Reword the bike specs screen tagline~~ done
 
 - Add a `country`/`market` field to bikes and surface it only where ambiguous (same brand/year, different catalogue per country, e.g. Raleigh UK vs USA 1985): badge in `meta` on year groups in `screens/BikesScreen.js`, a "Market" `Fact` row in `screens/BikeDetailScreen.js`, and appended to the subtitle in search results in `screens/BikesHomeScreen.js`. No change needed when a brand only has one country/catalogue. Rare case for now — low priority.
+
+- After each production Android build, upload R8 `mapping.txt` (EAS build artifacts) to Play Console → App bundle explorer → Downloads so crash stack traces are deobfuscated. R8 minify/obfuscation is enabled via `expo-build-properties` in `app.json`.
