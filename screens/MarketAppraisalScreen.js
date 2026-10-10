@@ -6,9 +6,9 @@ import FetchState from '../components/FetchState';
 import useFetchJson from '../hooks/useFetchJson';
 
 const MarketAppraisalScreen = ({ route }) => {
-    const { searchText } = route.params;
+    const { componentId } = route.params;
     const { serverURL } = config
-    const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?query=${searchText}&marketplace=ALL`)
+    const { data: listingsData, loading: listingsLoading, error: listingsError } = useFetchJson(`${serverURL}/getTopListings?componentId=${componentId}&marketplace=ALL`)
     const listings = listingsData && listingsData.listings
 
     return (
