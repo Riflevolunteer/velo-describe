@@ -19,6 +19,7 @@ const BikesHomeScreen = ({ navigation }) => {
     const isSearching = debouncedQuery.length >= MIN_QUERY_LENGTH;
     const searchURL = isSearching ? `${serverURL}/searchBikes?q=${encodeURIComponent(debouncedQuery)}` : null;
     const { data: results, loading, error } = useFetchJson(searchURL);
+    const { data: recent } = useFetchJson(`${serverURL}/recentBikes?limit=5`);
 
     return (
       <ScreenContainer>
@@ -60,6 +61,21 @@ const BikesHomeScreen = ({ navigation }) => {
           </View>
         )}
 
+        {!isSearching && recent && recent.length > 0 && (
+          <View style={styles.results}>
+            <Text style={styles.sectionTitle}>Recently added</Text>
+            {recent.map(x =>
+              <ListRow
+                key={x.bike_id}
+                title={x.title}
+                subtitle={[x.brand_title, x.category].filter(Boolean).join(' · ')}
+                meta={`Added ${new Date(x.created_at).toLocaleDateString()}`}
+                onPress={() => navigation.navigate('BikeDetail', {name: x.title, id: x.bike_id})}
+              />
+            )}
+          </View>
+        )}
+
         <Button title="Browse Brands" onPress={() => navigation.navigate('BikeBrands')} style={styles.browseButton} />
       </ScreenContainer>
     )
@@ -96,6 +112,10 @@ const BikesHomeScreen = ({ navigation }) => {
     },
     results: {
       marginBottom: theme.spacing.lg,
+    },
+    sectionTitle: {
+      ...theme.typography.eyebrow,
+      marginBottom: theme.spacing.sm,
     },
     emptyText: {
       ...theme.typography.body,

@@ -4,7 +4,7 @@
 
 - Look into possibly uploading pictures for components
 
-- add a list on front page of recently added bike specs
+- ~~add a list on front page of recently added bike specs~~ done - `BikesHomeScreen` shows the 5 newest from the API's `/recentBikes` (title, added date, link to detail); needs the API deployed with that endpoint
 
 - ~~add source references for bikes and components~~ done - bike and component detail pages show `source_label` from the API at the bottom
 
