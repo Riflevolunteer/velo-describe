@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { Text, Image, View, TextInput, StyleSheet } from 'react-native';
 import config from '../config';
 import theme from '../theme';
@@ -19,7 +20,15 @@ const BikesHomeScreen = ({ navigation }) => {
     const isSearching = debouncedQuery.length >= MIN_QUERY_LENGTH;
     const searchURL = isSearching ? `${serverURL}/searchBikes?q=${encodeURIComponent(debouncedQuery)}` : null;
     const { data: results, loading, error } = useFetchJson(searchURL);
-    const { data: recent } = useFetchJson(`${serverURL}/recentBikes?limit=5`);
+    const { data: recent, error: recentError, reload: reloadRecent } = useFetchJson(`${serverURL}/recentBikes?limit=5`);
+
+    // Retry the recent list when the screen regains focus if the initial load failed.
+    // Read the error via a ref so a failure while focused doesn't trigger a retry loop.
+    const recentErrorRef = useRef(recentError);
+    recentErrorRef.current = recentError;
+    useFocusEffect(useCallback(() => {
+      if (recentErrorRef.current) reloadRecent();
+    }, [reloadRecent]));
 
     return (
       <ScreenContainer>
