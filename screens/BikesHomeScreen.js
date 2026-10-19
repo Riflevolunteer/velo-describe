@@ -11,6 +11,8 @@ import useFetchJson from '../hooks/useFetchJson';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 
 const MIN_QUERY_LENGTH = 2;
+// Short per-attempt timeout so a slow recent list doesn't hold back the Browse button.
+const RECENT_TIMEOUT_MS = 3000;
 
 const BikesHomeScreen = ({ navigation }) => {
     const [query, setQuery] = useState('');
@@ -20,7 +22,7 @@ const BikesHomeScreen = ({ navigation }) => {
     const isSearching = debouncedQuery.length >= MIN_QUERY_LENGTH;
     const searchURL = isSearching ? `${serverURL}/searchBikes?q=${encodeURIComponent(debouncedQuery)}` : null;
     const { data: results, loading, error } = useFetchJson(searchURL);
-    const { data: recent, error: recentError, reload: reloadRecent } = useFetchJson(`${serverURL}/recentBikes?limit=5`);
+    const { data: recent, error: recentError, loading: recentLoading, reload: reloadRecent } = useFetchJson(`${serverURL}/recentBikes?limit=5`, { timeoutMs: RECENT_TIMEOUT_MS });
 
     // Retry the recent list when the screen regains focus if the initial load failed.
     // Read the error via a ref so a failure while focused doesn't trigger a retry loop.
@@ -70,7 +72,8 @@ const BikesHomeScreen = ({ navigation }) => {
           </View>
         )}
 
-        {!isSearching && recent && recent.length > 0 && (
+        {/* Hold the recent list and button back until the recent request settles; on failure show just the button. */}
+        {!isSearching && !recentLoading && recent && recent.length > 0 && (
           <View style={styles.results}>
             <Text style={styles.sectionTitle}>Recently added</Text>
             {recent.map(x =>
@@ -85,7 +88,9 @@ const BikesHomeScreen = ({ navigation }) => {
           </View>
         )}
 
-        <Button title="Browse Brands" onPress={() => navigation.navigate('BikeBrands')} style={styles.browseButton} />
+        {!recentLoading && (
+          <Button title="Browse Brands" onPress={() => navigation.navigate('BikeBrands')} style={styles.browseButton} />
+        )}
       </ScreenContainer>
     )
   }
