@@ -16,7 +16,9 @@
 
 - ~~Reword the bike specs screen tagline~~ done
 
-- Add a `country`/`market` field to bikes and surface it only where ambiguous (same brand/year, different catalogue per country, e.g. Raleigh UK vs USA 1985): badge in `meta` on year groups in `screens/BikesScreen.js`, a "Market" `Fact` row in `screens/BikeDetailScreen.js`, and appended to the subtitle in search results in `screens/BikesHomeScreen.js`. No change needed when a brand only has one country/catalogue. Rare case for now — low priority.
+- ~~Surface country on bike detail~~ done - the API returns an ISO `country` code on `/bikedetail` and `/recentBikes`; `BikeDetailScreen` shows a "Country" `Fact` row with the full name via `utils/countryName.js` (`Intl.DisplayNames`, falls back to the raw code). Check on an Android device that names (not codes) show; if not, swap in a hardcoded code-to-name map.
+
+- Surface country where ambiguous (same brand/year, different catalogue per country, e.g. Raleigh UK vs USA 1985): badge in `meta` on year groups in `screens/BikesScreen.js` and appended to the subtitle in search results in `screens/BikesHomeScreen.js`. No change needed when a brand only has one country/catalogue. Rare case for now — low priority.
 
 - R8 minify/obfuscation is enabled via `expo-build-properties` in `app.json`. The R8 mapping file is embedded in each production `.aab` (`BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`) and Play picks it up automatically. After each release, confirm it shows under Play Console → App bundle explorer → (version) → Downloads → Assets → ReTrace mapping file. If missing, extract it with `unzip -p app.aab BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map > mapping.txt` and upload it there.
 

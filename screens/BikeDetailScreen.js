@@ -7,6 +7,7 @@ import FetchState from '../components/FetchState';
 import SpecRow from '../components/SpecRow';
 import SourceNote from '../components/SourceNote';
 import useFetchJson from '../hooks/useFetchJson';
+import countryName from '../utils/countryName';
 
 const EMPTY_VALUES = new Set(['', 'n/a', 'none', 'not specified', 'unspecified', '-']);
 
@@ -37,7 +38,8 @@ const BikeDetailScreen = ({ route, navigation }) => {
             <Text style={styles.headline}>{[bike.brand_title, bike.category].filter(Boolean).join(' · ')}</Text>
 
             <Fact label="Catalogue year" value={bike.year_from} />
-            <Fact label="Sizes" value={bike.sizes} />
+            <Fact label="Country" value={countryName(bike.country)} />
+            <Fact label="Sizes"value={bike.sizes} />
             <Fact label="Colours" value={bike.colors} />
             <Fact label="Weight" value={bike.weight} />
 
