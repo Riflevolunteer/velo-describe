@@ -8,10 +8,6 @@
 - Look into uploading pictures for components.
 - Look for more vibrant design ideas.
 
-## Verify
-
-- Check on an Android device that the bike detail "Country" row shows full names, not codes (`utils/countryName.js` uses `Intl.DisplayNames` and falls back to the raw code). If codes show, swap in a hardcoded code-to-name map.
-
 ## Release checklist
 
 - R8 minify/obfuscation is enabled via `expo-build-properties` in `app.json`. The mapping file is embedded in each production `.aab` (`BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`) and Play picks it up automatically. After each release, confirm it shows under Play Console → App bundle explorer → (version) → Downloads → Assets → ReTrace mapping file. If missing, extract it with `unzip -p app.aab BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map > mapping.txt` and upload it there.
