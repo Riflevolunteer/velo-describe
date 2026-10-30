@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Pressable, StyleSheet } from 'react-native';
 import config from '../config'
 import theme from '../theme';
 import ScreenContainer from '../components/ScreenContainer';
@@ -32,6 +32,14 @@ const BikesScreen = ({ route, navigation }) => {
     const { serverURL } = config
     const { data: bikes, loading, error } = useFetchJson(`${serverURL}/bikesbybrand?brand_id=${brand_id}`)
     const groups = bikes && groupBikesByYear(bikes)
+    // Years start collapsed so a big brand opens as a short list of years; a
+    // brand with a single year has nothing to collapse, so it's always open.
+    const [openYears, setOpenYears] = useState(() => new Set())
+    const toggleYear = (year) => setOpenYears(prev => {
+      const next = new Set(prev)
+      next.has(year) ? next.delete(year) : next.add(year)
+      return next
+    })
 
     return (
       <ScreenContainer>
@@ -41,13 +49,23 @@ const BikesScreen = ({ route, navigation }) => {
           <Text style={styles.empty}>No bikes listed for this brand yet</Text>
         )}
         {
-          groups && groups.map(group => (
+          groups && groups.map(group => {
+            const single = groups.length === 1
+            const open = single || openYears.has(group.year)
+            return (
             <View key={group.year}>
-              <View style={styles.yearHeader}>
+              <Pressable
+                style={({ pressed }) => [styles.yearHeader, pressed && !single && styles.yearHeaderPressed]}
+                onPress={single ? undefined : () => toggleYear(group.year)}
+              >
                 <Text style={styles.yearLabel}>{group.year}</Text>
-              </View>
+                <View style={styles.yearMeta}>
+                  <Text style={styles.yearCount}>{group.bikes.length} {group.bikes.length === 1 ? 'model' : 'models'}</Text>
+                  {!single && <Text style={styles.yearChevron}>{open ? '−' : '+'}</Text>}
+                </View>
+              </Pressable>
               {
-                group.bikes.map(x =>
+                open && group.bikes.map(x =>
                   <ListRow
                     key={x.bike_id}
                     title={x.title}
@@ -56,7 +74,8 @@ const BikesScreen = ({ route, navigation }) => {
                   />)
               }
             </View>
-          ))
+            )
+          })
         }
       </ScreenContainer>
     )
@@ -76,6 +95,26 @@ const BikesScreen = ({ route, navigation }) => {
       backgroundColor: theme.colors.surface,
       borderBottomWidth: 2,
       borderBottomColor: theme.colors.accent,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    yearHeaderPressed: {
+      backgroundColor: theme.colors.border,
+    },
+    yearMeta: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    yearCount: {
+      ...theme.typography.caption,
+    },
+    yearChevron: {
+      ...theme.typography.title,
+      color: theme.colors.amber,
+      width: 20,
+      textAlign: 'right',
+      marginLeft: theme.spacing.sm,
     },
     yearLabel: {
       ...theme.typography.headline,
